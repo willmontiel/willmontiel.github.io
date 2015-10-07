@@ -1,0 +1,98 @@
+html {
+	font-family: 'Poiret One', cursive;
+	font-size: 17px;
+}
+
+a {
+	text-decoration: none;
+	color: #1D3E5F;
+}
+
+a:hover {
+	color: #BDD3E8;
+}
+
+footer {
+	padding: 10px;
+}
+
+header {
+	margin-top: -20px;
+	margin-bottom: -20px;
+	padding: 0;
+	background-color: #2A86AD;
+	position: relative;
+}
+
+header figure {
+	text-align: center;
+	color: white;
+	font-weight: 700;
+}
+
+footer {
+	text-align: center;
+}
+
+footer figure {
+	display: inline-block;
+	margin: 0 4px 0 0;
+}
+
+.img-social-networks {
+	width: 15px;
+}
+
+.contact-data > .email{
+	font-weight: 800;
+}
+
+.reserved-rights {
+	margin-top: 10px;
+	font-size: .7em;
+}
+
+.avatar {
+	width: 80px;
+	border-radius: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px solid white;
+	background-color: rgba(255,255,255, 0.4);
+	margin-top: 20px;
+}
+
+.menu {
+	/* position: fixed; */
+	background-color: #2A86AD;
+	z-index: 20;
+	/*bottom: 0px;
+	width: 100%;*/
+}
+
+.menu ul{
+	list-style-type: none;	
+	text-align: center;
+	font-size: 1.2em;
+	font-weight: 800;
+	line-height: 2em;
+}
+
+.menu ul li {
+	display: inline-block;
+	margin-right: .6em;
+}
+
+.content-container {
+	width: 100%;
+}
+
+.principal-image-content {
+	height: 60vh;
+	width: 100%;
+	background-image: url('../images/html2-min.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
