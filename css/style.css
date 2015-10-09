@@ -252,3 +252,8 @@ footer figure {
     font-size: 1.2em;
     max-width: 768px;
 }
+
+.link-active {
+	color: white;
+	text-decoration: underline;
+}
