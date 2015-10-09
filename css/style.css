@@ -5,7 +5,8 @@ html {
 
 a {
 	text-decoration: none;
-	color: #1D3E5F;
+	color: #00132A;
+	font-weight: 700;
 }
 
 a:hover {
@@ -164,7 +165,13 @@ footer figure {
 }
 
 .content-container {
+	margin: 0 auto;
 	max-width: 1366px;
+	background-image: url('../images/background-line.png');
+}
+
+.background-section {
+	width: 100%;
 	background-image: url('../images/background-line.png');
 	margin-top: 20px;
 }
@@ -236,4 +243,12 @@ footer figure {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
+}
+
+.profile {
+	margin: 0 auto;
+	padding: 20px;
+    background-color: white;
+    font-size: 1.2em;
+    max-width: 768px;
 }
