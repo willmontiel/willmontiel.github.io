@@ -15,7 +15,7 @@
 				<img class="profile-picture" width="80px" src="images/Will-small.png" alt="Will Montiel" />
 				<div class="profile-data">
 					<div class="profile-name">Will Montiel</div>
-					<div class="profile-description">I'm a programmer but with style.</div>
+					<div class="profile-description">I'm a backend programmer but i also do frontend.</div>
 				</div>
 			</div>
 
@@ -29,7 +29,7 @@
 		</header>
 
 		<section class="background-section">
-			<div class="content-container">
+			<div class="content-container ib-container" id="ib-container">
 				<div class="content-container-row php-background">
 					<div class="experience-container">
 						<div class="experience-block">
@@ -49,7 +49,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="content-container-row">
+				<div class="content-container-row php-background">
 					<div class="experience-container">
 						<div class="experience-block">
 							<figure>
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="content-container-row">
+				<div class="content-container-row php-background">
 					<div class="experience-container">
 						<div class="experience-block">
 							<figure>
@@ -89,7 +89,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="content-container-row">
+				<div class="content-container-row php-background">
 					<div class="experience-container">
 						<div class="experience-block">
 							<figure>
@@ -111,7 +111,7 @@
 					</div>
 				</div>
 
-				<div class="content-container-row">
+				<div class="content-container-row php-background">
 					<div class="experience-container">
 						<div class="experience-block">
 							<figure>
@@ -131,7 +131,7 @@
 					</div>
 				</div>
 
-				<div class="content-container-row">
+				<div class="content-container-row php-background">
 					<div class="experience-container">
 						<div class="experience-block">
 							<figure>
@@ -151,7 +151,7 @@
 					</div>
 				</div>
 
-				<div class="content-container-row">
+				<div class="content-container-row php-background">
 					<div class="experience-container">
 						<div class="experience-block">
 							<figure>
@@ -171,7 +171,7 @@
 					</div>
 				</div>
 
-				<div class="content-container-row">
+				<div class="content-container-row php-background">
 					<div class="experience-container">
 						<div class="experience-block">
 							<figure>
@@ -191,7 +191,7 @@
 					</div>
 				</div>
 
-				<div class="content-container-row">
+				<div class="content-container-row php-background">
 					<div class="experience-container" id="target">
 						<div class="experience-block">
 							<figure>
@@ -245,5 +245,30 @@
 				© Will Montiel Design | 2015
 			</div>
 		</footer>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script>
+			var $container	= $('#ib-container');
+			var $rows	= $container.children('.content-container-row');
+			var timeout;
+
+			$rows.on( 'mouseenter', function( event ) {
+				var $row = $(this);
+				clearTimeout(timeout);
+
+				timeout = setTimeout( function() {	
+					if ($row.hasClass('active')) {
+						return false;	
+					}
+
+					$rows.not($row).removeClass('active').addClass('blur');
+					$row.removeClass('blur').addClass('active');
+				}, 75 );
+			});
+
+			$container.on( 'mouseleave', function( event ) {
+				clearTimeout(timeout);
+				$rows.removeClass('active blur');
+			});
+		</script>
 	</body>
 </html>
