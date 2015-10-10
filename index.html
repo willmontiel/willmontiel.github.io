@@ -260,14 +260,14 @@
 						return false;	
 					}
 
-					$rows.not($row).removeClass('active').addClass('blur');
-					$row.removeClass('blur').addClass('active');
+					$rows.not($row).removeClass('active').addClass('blur-effect');
+					$row.removeClass('blur-effect').addClass('active');
 				}, 75 );
 			});
 
 			$container.on( 'mouseleave', function( event ) {
 				clearTimeout(timeout);
-				$rows.removeClass('active blur');
+				$rows.removeClass('active blur-effect');
 			});
 		</script>
 	</body>
