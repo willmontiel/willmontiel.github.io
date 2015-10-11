@@ -15,11 +15,16 @@
 				<img class="profile-picture" width="80px" src="images/Will-small.png" alt="Will Montiel" />
 				<div class="profile-data">
 					<div class="profile-name">Will Montiel</div>
-					<div class="profile-description">I'm a backend programmer but i also do frontend.</div>
+					<div class="profile-description">Backend <strong>&middot;</strong> Frontend Developer.</div>
 				</div>
 			</div>
 
-			<nav class="menu">
+			<div class="menu-buttons">
+				<img src="images/menu.png" alt="open-menu" class="open-menu is-active" id="open-menu">
+				<img src="images/close.png" alt="close-menu" class="close-menu" id="close-menu">
+			</div>
+
+			<nav class="menu" id="menu">
 				<ul>
 					<li><a href="#" class="link-active" title="Inicio">Inicio</a></li>
 					<li><a href="professional-profile.html" title="¿Quién soy?">¿Quién soy?</a></li>
@@ -28,186 +33,292 @@
 			</nav>
 		</header>
 
-		<section class="background-section">
-			<div class="content-container ib-container" id="ib-container">
-				<div class="content-container-row php-background">
-					<div class="experience-container">
-						<div class="experience-block">
-							<figure>
-								<img src="images/php.png" width="45" height="45" alt="php"/>
-								<figcaption>
-									PHP
-								</figcaption>
-							</figure>
-							<div class="experience-description">
-								<ul>
-									<li>Experiencia comprobada de más de <strong>2 años</strong></li>
-									<li>Programación orientada a objetos</li>
-									<li>Programáción con metodologá MVC usando el <strong>framework Phalconphp</strong></li>
-								</ul>	
-							</div>
-						</div>
-					</div>
+		<section class="image-section">
+			<div class="content-container">
+				<img id="frontend-backend-image" src="images/frontend-backend.jpg" alt="" />
+				<div class="floating-experience --css">
+					<img class="icon-experience" src="images/css.png" width="45" height="45" alt="css"/>
+					<span class="floating-experience--css">
+						<h3>CSS</h3>
+						<ul>
+							<li><strong>Responsive design</strong></li>
+							<li>Retina design</li>
+							<li>Diseño de sitios web con <strong>CSS y CSS3</strong></li>
+							<li>Experiencia básica con <strong>less</strong></li>
+							<li>Experiencia básica con <strong>stylus</strong></li>
+						</ul>
+					</span>
 				</div>
-				<div class="content-container-row php-background">
-					<div class="experience-container">
-						<div class="experience-block">
-							<figure>
-								<img src="images/html5.png" width="45" height="45" alt="html 5"/>
-								<figcaption>
-									HTML 5
-								</figcaption>
-							</figure>
-							<div class="experience-description">
-								<ul>
-									<li>Maquetación y diseño de sitios web con <strong>html5</strong></li>
-									<li>Maquetación y diseño con <strong>Bootstrap</strong> 2 y 3</li>
-									<li><strong>Canvas</strong> básico</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+				<div class="floating-experience --html">
+					<img class="icon-experience" src="images/html5.png" width="45" height="45" alt="html5"/>
+					<span>
+						<h3>HTML5</h3>
+						<ul>
+							<li>Maquetación y diseño de sitios web con <strong>html5</strong></li>
+							<li>Maquetación y diseño con <strong>Bootstrap</strong> 2 y 3</li>
+							<li><strong>Canvas</strong> básico</li>
+						</ul>
+					</span>
 				</div>
-				<div class="content-container-row php-background">
-					<div class="experience-container">
-						<div class="experience-block">
-							<figure>
-								<img src="images/css.png" width="45" height="45" alt="css" />
-								<figcaption>
-									CSS
-								</figcaption>
-							</figure>
-							<div class="experience-description">
-								<ul>
-									<li><strong>Responsive design</strong></li>
-									<li>Retina design</li>
-									<li>Diseño de sitios web con <strong>CSS y CSS3</strong></li>
-									<li>Experiencia básica con <strong>less</strong></li>
-									<li>Experiencia básica con <strong>stylus</strong></li>
-								</ul>
-							</div>
-						</div>
-					</div>
+				<div class="floating-experience --javascript">
+					<img class="icon-experience" src="images/js.png" width="45" height="45" alt="javascript"/>
+					<span class="floating-experience--js">
+						<h3>JAVASCRIPT</h3>
+						<ul>
+							<li>Programación en frontend para mejorar la experiencia e interacción del usuario con <strong>framework Ember.js</strong></li>
+							<li>Experiencia con la librería <strong>Jquery</strong></li>
+							<li>Eventos touch con <strong>Hammer.js</strong></li>
+							<li>Programación orientada a objetos</li>
+							<li>Experiencia con conexión a API's</li>
+						</ul>
+					</span>
 				</div>
-				<div class="content-container-row php-background">
-					<div class="experience-container">
-						<div class="experience-block">
-							<figure>
-								<img src="images/js.png" width="45" height="45" alt="javascript"/>
-								<figcaption>
-									JAVASCRIPT
-								</figcaption>
-							</figure>
-							<div class="experience-description">
-								<ul>
-									<li>Programación en frontend para mejorar la experiencia e interacción del usuario con <strong>framework Ember.js</strong></li>
-									<li>Experiencia con la librería <strong>Jquery</strong></li>
-									<li>Eventos touch con <strong>Hammer.js</strong></li>
-									<li>Programación orientada a objetos</li>
-									<li>Experiencia con conexión a API's</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+				<div class="floating-experience --android">
+					<img class="icon-experience" src="images/android.png" width="45" height="45" alt="android"/>
+					<span>
+						<h3>ANDROID</h3>
+						<ul>
+							<li>Programación de aplicaciones android nativas<strong>(JAVA y XML)</strong></li>
+							<li>Android Studio</li>
+							<li><strong>Material Design</strong></li>
+						</ul>
+					</span>
 				</div>
+				<div class="floating-experience --linux">
+					<img class="icon-experience" src="images/linux.png" width="45" height="45" alt="linux"/>
+					<span>
+						<h3>LINUX</h3>
+						<ul>
+							<li>Manejo de consola <strong>UNIX</strong></li>
+							<li>Experiencia básica con <strong>Apache</strong> y <strong>Nginx</strong></li>
+							<li>Cronjobs</li>
+						</ul>
+					</span>
+				</div>
+				<div class="floating-experience --php">
+					<img class="icon-experience" src="images/php.png" width="45" height="45" alt="php"/>
+					<span class="floating-experience--php">
+						<h3>PHP</h3>
+						<ul>
+							<li>Experiencia comprobada de más de <strong>2 años</strong></li>
+							<li>Programación orientada a objetos</li>
+							<li>Programáción con metodologá MVC usando el <strong>framework Phalconphp</strong></li>
+						</ul>
+					</span>
+				</div>
+				<div class="floating-experience --mysql">
+					<img class="icon-experience" src="images/mysql.png" width="45" height="45" alt="mysql"/>
+					<span>
+						<h3>MySQL</h3>
+						<ul>
+							<li>Creación de modelos relacionales con <strong>MySQL Workbench</strong></li>
+							<li>Creación de consultas a la base de datos</li>
+							<li><strong>Navicat</strong></li>
+						</ul>
+					</span>
+				</div>
+				<div class="floating-experience --git">
+					<img class="icon-experience" src="images/git.png" width="45" height="45" alt="git"/>
+					<span>
+						<h3>GIT</h3>
+						<ul>
+							<li>Git desde <strong>consola.</strong></li>
+							<li>Hooks</li>
+							<li>Github, Github Pages y Bitbucket</li>
+						</ul>
+					</span>
+				</div>
+				<div class="floating-experience --scrum">
+					<img class="icon-experience" src="images/scrum.png" width="45" height="45" alt="scrum"/>
+					<span class="floating-experience--scrum">
+						<h3>SCRUM</h3>
+						<ul>
+							<li>Experiencia <strong>planeando proyectos</strong> con la metodología SCRUM</li>
+							<li>Experiencia <strong>liderando proyectos</strong> con la metodología SCRUM</li>
+							<li>Experiencia <strong>liderando grupos de trabajo</strong> con la metodología SCRUM</li>
+						</ul>
+					</span>
+				</div>
+			</div>
+		</section>
 
-				<div class="content-container-row php-background">
-					<div class="experience-container">
-						<div class="experience-block">
-							<figure>
-								<img src="images/mysql.png" width="45" height="45" alt="mysql"/>
-								<figcaption>
-									MySQL
-								</figcaption>
-							</figure>
-							<div class="experience-description">
-								<ul>
-									<li>Creación de modelos relacionales con <strong>MySQL Workbench</strong></li>
-									<li>Creación de consultas a la base de datos</li>
-									<li><strong>Navicat</strong></li>
-								</ul>
-							</div>
+		<section class="text-section">
+			<div class="content-container-row">
+				<div class="experience-container">
+					<div class="experience-block">
+						<figure>
+							<img src="images/php.png" width="45" height="45" alt="php"/>
+							<figcaption>
+								PHP
+							</figcaption>
+						</figure>
+						<div class="experience-description">
+							<ul>
+								<li>Experiencia comprobada de más de <strong>2 años</strong></li>
+								<li>Programación orientada a objetos</li>
+								<li>Programáción con metodologá MVC usando el <strong>framework Phalconphp</strong></li>
+							</ul>	
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="content-container-row php-background">
-					<div class="experience-container">
-						<div class="experience-block">
-							<figure>
-								<img src="images/git.png" width="45" height="45"alt="git"/>
-								<figcaption>
-									GIT
-								</figcaption>
-							</figure>
-							<div class="experience-description">
-								<ul>
-									<li>Experiencia con <strong>GIT</strong> como sistema de control de versiones</li>
-									<li>Hooks</li>
-									<li>Github, Github Pages y Bitbucket</li>
-								</ul>
-							</div>
+			<div class="content-container-row">
+				<div class="experience-container">
+					<div class="experience-block">
+						<figure>
+							<img src="images/html5.png" width="45" height="45" alt="html 5"/>
+							<figcaption>
+								HTML 5
+							</figcaption>
+						</figure>
+						<div class="experience-description">
+							<ul>
+								<li>Maquetación y diseño de sitios web con <strong>html5</strong></li>
+								<li>Maquetación y diseño con <strong>Bootstrap</strong> 2 y 3</li>
+								<li><strong>Canvas</strong> básico</li>
+							</ul>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="content-container-row php-background">
-					<div class="experience-container">
-						<div class="experience-block">
-							<figure>
-								<img src="images/android.png" width="45" height="45"alt="android"/>
-								<figcaption>
-									ANDROID
-								</figcaption>
-							</figure>
-							<div class="experience-description">
-								<ul>
-									<li>Programación de aplicaciones android nativas<strong>(JAVA y XML)</strong></li>
-									<li>Android Studio</li>
-									<li><strong>Material Design</strong></li>
-								</ul>
-							</div>
+			<div class="content-container-row">
+				<div class="experience-container">
+					<div class="experience-block">
+						<figure>
+							<img src="images/css.png" width="45" height="45" alt="css" />
+							<figcaption>
+								CSS
+							</figcaption>
+						</figure>
+						<div class="experience-description">
+							<ul>
+								<li><strong>Responsive design</strong></li>
+								<li>Retina design</li>
+								<li>Diseño de sitios web con <strong>CSS y CSS3</strong></li>
+								<li>Experiencia básica con <strong>less</strong></li>
+								<li>Experiencia básica con <strong>stylus</strong></li>
+							</ul>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="content-container-row php-background">
-					<div class="experience-container">
-						<div class="experience-block">
-							<figure>
-								<img src="images/linux.png" width="45" height="45" alt="linux"/>
-								<figcaption>
-									LINUX
-								</figcaption>
-							</figure>
-							<div class="experience-description">
-								<ul>
-									<li>Manejo de consola <strong>UNIX</strong></li>
-									<li>Experiencia básica con <strong>Apache</strong> y <strong>Nginx</strong></li>
-									<li>Cronjobs</li>
-								</ul>
-							</div>
+			<div class="content-container-row">
+				<div class="experience-container">
+					<div class="experience-block">
+						<figure>
+							<img src="images/js.png" width="45" height="45" alt="javascript"/>
+							<figcaption>
+								JAVASCRIPT
+							</figcaption>
+						</figure>
+						<div class="experience-description">
+							<ul>
+								<li>Programación en frontend para mejorar la experiencia e interacción del usuario con <strong>framework Ember.js</strong></li>
+								<li>Experiencia con la librería <strong>Jquery</strong></li>
+								<li>Eventos touch con <strong>Hammer.js</strong></li>
+								<li>Programación orientada a objetos</li>
+								<li>Experiencia con conexión a API's</li>
+							</ul>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				<div class="content-container-row php-background">
-					<div class="experience-container" id="target">
-						<div class="experience-block">
-							<figure>
-								<img src="images/scrum.png" width="45" height="45" alt="scrum"/>
-								<figcaption>
-									SCRUM
-								</figcaption>
-							</figure>
-							<div class="experience-description">
-								<ul>
-									<li>Experiencia <strong>planeando proyectos</strong> con la metodología SCRUM</li>
-									<li>Experiencia <strong>liderando proyectos</strong> con la metodología SCRUM</li>
-									<li>Experiencia <strong>liderando grupos de trabajo</strong> con la metodología SCRUM</li>
-								</ul>
-							</div>
+			<div class="content-container-row">
+				<div class="experience-container">
+					<div class="experience-block">
+						<figure>
+							<img src="images/mysql.png" width="45" height="45" alt="mysql"/>
+							<figcaption>
+								MySQL
+							</figcaption>
+						</figure>
+						<div class="experience-description">
+							<ul>
+								<li>Creación de modelos relacionales con <strong>MySQL Workbench</strong></li>
+								<li>Creación de consultas a la base de datos</li>
+								<li><strong>Navicat</strong></li>
+							</ul>
 						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="content-container-row">
+				<div class="experience-container">
+					<div class="experience-block">
+						<figure>
+							<img src="images/git.png" width="45" height="45"alt="git"/>
+							<figcaption>
+								GIT
+							</figcaption>
+						</figure>
+						<div class="experience-description">
+							<ul>
+								<li>Experiencia con <strong>GIT</strong> como sistema de control de versiones</li>
+								<li>Hooks</li>
+								<li>Github, Github Pages y Bitbucket</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="content-container-row">
+				<div class="experience-container">
+					<div class="experience-block">
+						<figure>
+							<img src="images/android.png" width="45" height="45"alt="android"/>
+							<figcaption>
+								ANDROID
+							</figcaption>
+						</figure>
+						<div class="experience-description">
+							<ul>
+								<li>Programación de aplicaciones android nativas<strong>(JAVA y XML)</strong></li>
+								<li>Android Studio</li>
+								<li><strong>Material Design</strong></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="content-container-row">
+				<div class="experience-block">
+					<figure>
+						<img src="images/linux.png" width="45" height="45" alt="linux"/>
+						<figcaption>
+							LINUX
+						</figcaption>
+					</figure>
+					<div class="experience-description">
+						<ul>
+							<li>Manejo de consola <strong>UNIX</strong></li>
+							<li>Experiencia básica con <strong>Apache</strong> y <strong>Nginx</strong></li>
+							<li>Cronjobs</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="content-container-row">
+				<div class="experience-block">
+					<figure>
+						<img src="images/scrum.png" width="45" height="45" alt="scrum"/>
+						<figcaption>
+							SCRUM
+						</figcaption>
+					</figure>
+					<div class="experience-description">
+						<ul>
+							<li>Experiencia <strong>planeando proyectos</strong> con la metodología SCRUM</li>
+							<li>Experiencia <strong>liderando proyectos</strong> con la metodología SCRUM</li>
+							<li>Experiencia <strong>liderando grupos de trabajo</strong> con la metodología SCRUM</li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -245,29 +356,15 @@
 				© Will Montiel Design | 2015
 			</div>
 		</footer>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script>
-			var $container	= $('#ib-container');
-			var $rows	= $container.children('.content-container-row');
-			var timeout;
-
-			$rows.on( 'mouseenter', function( event ) {
-				var $row = $(this);
-				clearTimeout(timeout);
-
-				timeout = setTimeout( function() {	
-					if ($row.hasClass('active')) {
-						return false;	
-					}
-
-					$rows.not($row).removeClass('active').addClass('blur-effect');
-					$row.removeClass('blur-effect').addClass('active');
-				}, 75 );
+		<script src="js/vendors/jquery-1.11.3.min.js"></script>
+		<script src="js/helper.js"></script>
+		<script>	
+			$(window).load(function() {
+				resizeMenu(getHeightElement("frontend-backend-image") + 10);
 			});
 
-			$container.on( 'mouseleave', function( event ) {
-				clearTimeout(timeout);
-				$rows.removeClass('active blur-effect');
+			window.addEventListener('resize', function(event) {
+				resizeMenu(getHeightElement("frontend-backend-image") + 10);
 			});
 		</script>
 	</body>

@@ -15,11 +15,16 @@
 				<img class="profile-picture" width="80px" src="images/Will-small.png" alt="Will Montiel" />
 				<div class="profile-data">
 					<div class="profile-name">Will Montiel</div>
-					<div class="profile-description">I'm a programmer but with style.</div>
+					<div class="profile-description">Backend <strong>&middot;</strong> Frontend Developer.</div>
 				</div>
 			</div>
 
-			<nav class="menu">
+			<div class="menu-buttons">
+				<img src="images/menu.png" alt="open-menu" class="open-menu is-active" id="open-menu">
+				<img src="images/close.png" alt="close-menu" class="close-menu" id="close-menu">
+			</div>
+
+			<nav class="menu" id="menu">
 				<ul>
 					<li><a href="index.html" title="Inicio">Inicio</a></li>
 					<li><a href="professional-profile.html" title="¿Quién soy?">¿Quién soy?</a></li>
@@ -28,7 +33,7 @@
 			</nav>
 		</header>
 
-		<section class="section">
+		<section class="section" id="portfolio-data">
 			<article class="portfolio-article">
 				<h2>Portafolio</h2>
 				<hr />
@@ -89,5 +94,16 @@
 				© Will Montiel Design | 2015
 			</div>
 		</footer>
+		<script src="js/vendors/jquery-1.11.3.min.js"></script>
+		<script src="js/helper.js"></script>
+		<script>	
+			$(window).load(function() {
+				resizeMenu(getHeightElement("portfolio-data") - 10);
+			});
+
+			window.addEventListener('resize', function(event) {
+				resizeMenu(getHeightElement("portfolio-data") - 10);
+			});
+		</script>
 	</body>
 </html>
