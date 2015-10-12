@@ -405,54 +405,53 @@ footer figure {
 
 .floating-experience {
     position: absolute;
-    z-index: 2;
     width: 45px;
     height: 45px;
 }
 
 .--css {
-    top: 32%;
+    top: 13%;
     left: 20%;
 }
 
 .--html {
-	top: 32%;
+    top: 10%;
     left: 30%;
 }
 
 .--javascript {
-	top: 38%;
-    left: 25%;
+    top: 25%;
+    left: 18%;
 }
 
 .--android {
-    top: 66%;
-    left: 26%;
+    top: 80%;
+    left: 18%;
 }
 
 .--php {
-    top: 42%;
-    left: 59%;	
+    top: 30%;
+    left: 48%;	
 }
 
 .--mysql {
-    top: 28%;
-    left: 77%;	
+    top: 8%;
+    left: 76%;	
 }
 
 .--linux {
-    top: 33%;
-    left: 60%;			
+    top: 47%;
+    left: 65%;		
 }
 
 .--scrum {
-	top: 0%;
-    left: 0%;		
+    bottom: 25%;
+    right: 22%;		
 }
 
 .--git {
-	top: 10%;
-    left: 0%;		
+    bottom: 20%;
+    right: 45%;		
 }
 
 .icon-experience {
@@ -475,6 +474,7 @@ footer figure {
 	width: 250px;
 	height: 250px;
 	font-size: 15px;
+	border: 1px dashed black;
 	margin-left: -55px;
 	background: rgba(255,255,255,0.8);
 	text-indent: 0px;
@@ -494,6 +494,7 @@ footer figure {
 	-o-transition: all 0.3s ease-in-out;
 	-ms-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
+	z-index: 1000;
 }
 
 .floating-experience--js {
