@@ -21,6 +21,12 @@ header {
 	border-bottom: 6px solid #CC2514;
 }
 
+.header {
+	position: relative;
+	height: 105px;
+	width: 100%;
+}
+
 .image-gradient {
 	background: 
         -webkit-linear-gradient(rgba(0, 19, 42, .8), rgba(0, 19, 42, .8)), url('../images/html2-min.jpg');
