@@ -23,8 +23,7 @@ header {
 
 .header {
 	position: relative;
-	height: 105px;
-	width: 1366px;
+	max-width: 1366px;
 	margin: 0 auto;
 }
 
@@ -104,6 +103,7 @@ header {
 }
 
 .menu {
+	opacity: 0;
     z-index: 20;
     display: inline-block;
     vertical-align: top;
@@ -122,6 +122,7 @@ header {
 
 .menu.is-active {
   right: 0;
+  opacity: 1;
 }
 
 .menu ul{
@@ -183,6 +184,7 @@ header {
 	}
 
 	.menu {
+		opacity: 1;
 		background-color: #00132A;
 		width: auto;
 	    display: block;
@@ -384,10 +386,11 @@ footer {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	position: relative;
+	position: absolute;
   	padding: 10px;
   	border-top: 6px solid #CC2514;
-  	/*margin: 50px 0 0 0;*/
+  	width: 100%;
+
 }
 
 footer figure {
@@ -414,51 +417,54 @@ footer figure {
     position: absolute;
     width: 45px;
     height: 45px;
+    border-radius: 50%;
+    border: 1px solid #00132A;
 }
 
 .--css {
     top: 13%;
-    left: 20%;
+    left: 19%;
 }
 
 .--html {
-    top: 10%;
-    left: 30%;
+    top: 6%;
+    left: 33%;
 }
 
 .--javascript {
-    top: 25%;
-    left: 18%;
+    top: 32%;
+    left: 16%;
 }
 
 .--android {
-    top: 80%;
-    left: 18%;
+    top: 81%;
+    left: 19%;
 }
 
 .--php {
-    top: 30%;
-    left: 48%;	
+    top: 20%;
+    left: 49%;	
 }
 
 .--mysql {
-    top: 8%;
-    left: 76%;	
+    top: 9%;
+    right: 14%;	
 }
 
 .--linux {
-    top: 47%;
-    left: 65%;		
+    top: 42%;
+    left: 69%;	
 }
 
 .--scrum {
-    bottom: 25%;
-    right: 22%;		
+    bottom: 14%;
+    right: 15%;
+		
 }
 
 .--git {
-    bottom: 20%;
-    right: 45%;		
+    bottom: 12%;
+    right: 42%;		
 }
 
 .icon-experience {
@@ -477,12 +483,16 @@ footer figure {
   	border: none;
 }
 
+.open--left--mysql {
+	margin-left: -250px !important;
+}
+
 .floating-experience span{
 	width: 250px;
 	height: 250px;
 	font-size: 15px;
 	border: 1px dashed black;
-	margin-left: -55px;
+	margin-left: 45px;
 	background: rgba(255,255,255,0.8);
 	text-indent: 0px;
 	position: absolute;
@@ -517,6 +527,7 @@ footer figure {
 .floating-experience--scrum {
 	width: 290px !important;
 	height: 290px !important;
+	margin-left: -280px !important;
 }
 
 .floating-experience--php {
@@ -527,7 +538,7 @@ footer figure {
 
 .floating-experience:hover span{
 	opacity: 1;
-	left: 100px;
+	/* left: 100px; */
 	-webkit-transform: scale(1);
 	-moz-transform: scale(1);
 	-o-transform: scale(1);
@@ -545,4 +556,16 @@ footer figure {
 	font-size: 1.1em;
 	vertical-align: middle;
     display: inline-block;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+  display: table;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
 }
