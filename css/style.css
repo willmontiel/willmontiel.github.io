@@ -211,7 +211,7 @@ header {
 
 	.menu ul{
 		text-align: center;
-		font-size: 1.4em;
+		font-size: 1.2em;
 		line-height: 1.4em;
 		margin: 0;
 		padding: 10px;
@@ -366,7 +366,7 @@ header {
 
 .article {
 	margin: 0 auto 140px auto;
-    padding: 20px 0 0 0;
+    padding: 20px 5px 0 5px;
     background-color: white;
     font-size: 1.1em;
     max-width: 768px;
