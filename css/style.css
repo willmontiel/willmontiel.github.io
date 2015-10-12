@@ -24,7 +24,8 @@ header {
 .header {
 	position: relative;
 	height: 105px;
-	width: 100%;
+	width: 1366px;
+	margin: 0 auto;
 }
 
 .image-gradient {
