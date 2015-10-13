@@ -28,7 +28,7 @@
 				<ul>
 					<li><a href="index.html" title="Inicio">Inicio</a></li>
 					<li><a href="professional-profile.html" title="¿Quién soy?">¿Quién soy?</a></li>
-					<li><a href="#" class="link-active" title="Portafolio">Portafolio</a></li>
+					<li class="link-active"><a href="#" title="Portafolio">Portafolio</a></li>
 				</ul>
 			</nav>
 		</header>
@@ -39,9 +39,10 @@
 				<hr />
 				<ul>
 					<li>
+						<p>
 						<a href="https://github.com/willmontiel/email-marketing" title="Email Marketing" target="_blank">
 							Email Marketing:
-						</a> Es la plataforma más grande en la que he trabajado en los últimos 2 años. Es una plataforma de <strong>Email Marketing(Envío de correos masivos)</strong>, en la cual el usuario tiene a disposición estadísticas y muchas funcionalidades automáticas, ya que se desarrolló para que fuera inteligente. Esta plataforma fue y continua desarrollandose con <strong>PHP</strong> y un framework llamado <a href="https://phalconphp.com/es/" title="Phalconphp" target="_blank">Phalconphp</a>, uno de los más rápidos en ejecución, también se usó <strong>Html</strong>, <strong>Javascript</strong> con <strong>Ember.js</strong>, <strong>Jquery</strong>, <strong>CSS y LESS</strong>, Php-ZMQ(Conexión por sockets), <strong>MySQL</strong> y muchas otras tecnologías.
+						</a> Es la plataforma más grande en la que he trabajado en los últimos 2 años. Es una plataforma de <strong>Email Marketing(Envío de correos masivos)</strong>, en la cual el usuario tiene a disposición estadísticas y muchas funcionalidades automáticas, ya que se desarrolló para que fuera inteligente. </p>Esta plataforma fue y continúa desarrollandose con <strong>PHP</strong> y un framework llamado <a href="https://phalconphp.com/es/" title="Phalconphp" target="_blank">Phalconphp</a>, uno de los más rápidos en ejecución, también se usó <strong>Html</strong>, <strong>Javascript</strong> con <strong>Ember.js</strong>, <strong>Jquery</strong>, <strong>CSS y LESS</strong>, Php-ZMQ(Conexión por sockets), <strong>MySQL</strong> y muchas otras tecnologías.
 					</li>
 					<li>
 						<a href="https://github.com/willmontiel/track" title="Track" target="_blank">
@@ -98,11 +99,11 @@
 		<script src="js/helper.js"></script>
 		<script>	
 			$(window).load(function() {
-				resizeMenu(getHeightElement("portfolio-data") - 10);
+				resizeMenu(getHeightElement("portfolio-data") + 130);
 			});
 
 			window.addEventListener('resize', function(event) {
-				resizeMenu(getHeightElement("portfolio-data") - 10);
+				resizeMenu(getHeightElement("portfolio-data") + 130);
 			});
 		</script>
 	</body>

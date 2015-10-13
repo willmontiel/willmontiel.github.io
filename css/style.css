@@ -143,25 +143,28 @@ header {
     font-weight: 800;
     line-height: 2.5em;
     padding: 0;
-    margin: 0 24px;
 }
 
 .menu ul li {
-	display: inline-block;
-    margin: 0 .6em;
+    display: inline-block;
+    width: 100%;
+}
+
+.menu ul li:hover{
+	background-color: #00132a;
 }
 
 .menu ul li a{
 	color: white;
+	padding-right: 36px;
 }
 
 .menu ul li a:hover{
-	color: #7F3A33;
+	color: white;
 }
 
 .link-active {
-	color: white;
-	text-decoration: underline;
+	background-color: #00132a;
 }
 
 @media screen and (max-width: 768px) {
@@ -217,12 +220,13 @@ header {
 		padding: 10px;
 	}
 
-	a {
-		color: #BDD3E8;
+	.menu ul li {
+	    display: inline-block;
+	    width: auto;
 	}
 
-	a:hover {
-		color: #2A86AD;
+	.menu ul li a:hover {
+		color: #CC2514;
 	}
 }
 
@@ -368,7 +372,7 @@ header {
 	margin: 0 auto 140px auto;
     padding: 20px 5px 0 5px;
     background-color: white;
-    font-size: 1.1em;
+    font-size: 1em;
     max-width: 768px;
 }
 
@@ -392,7 +396,7 @@ footer {
 	position: absolute;
   	padding: 10px;
   	border-top: 6px solid #CC2514;
-  	width: 100%;
+  	width: 99%;
 
 }
 
@@ -422,6 +426,7 @@ footer figure {
     height: 45px;
     border-radius: 50%;
     border: 1px solid #00132A;
+    cursor: pointer;
 }
 
 .--css {
@@ -559,6 +564,10 @@ footer figure {
 	font-size: 1.1em;
 	vertical-align: middle;
     display: inline-block;
+}
+
+.fe--js {
+	font-size: .9em;
 }
 
 .clearfix {
