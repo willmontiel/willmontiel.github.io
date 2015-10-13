@@ -427,6 +427,7 @@ footer figure {
     border-radius: 50%;
     border: 1px solid #00132A;
     cursor: pointer;
+    box-shadow: 3px 1px 5px #A4A4A4;
 }
 
 .--css {
