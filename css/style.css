@@ -372,8 +372,10 @@ header {
 	margin: 0 auto 140px auto;
     padding: 20px 5px 0 5px;
     background-color: white;
-    font-size: 1em;
+    font-size: 1.2em;
     max-width: 768px;
+    height: 100%;
+    text-align: justify;
 }
 
 .article ul li {
@@ -393,11 +395,10 @@ footer {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
-	position: absolute;
+	/*position: absolute;*/
   	padding: 10px;
   	border-top: 6px solid #CC2514;
   	width: 99%;
-
 }
 
 footer figure {
