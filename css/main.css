@@ -1,0 +1,423 @@
+/* ============================================================
+   William Montiel — personal site
+   Phase 1: skeleton. Monochrome, typography-first, white base.
+   Color + motion ("wow" layer) come in a later phase.
+   ============================================================ */
+
+/* --- Reset (minimal) --------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+img,
+picture { max-width: 100%; display: block; }
+
+/* --- Design tokens ----------------------------------------- */
+:root {
+  /* Color — monochrome for now */
+  --paper:            #ffffff;
+  --ink:              #0a0a0a;
+  --ink-soft:         #333333;
+  --graphite:         #707070;
+  --hairline:         #e6e6e6;
+  --hairline-strong:  #cfcfcf;
+
+  /* Type */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Layout */
+  --measure:  42rem;   /* comfortable reading column */
+  --page-max: 68rem;
+
+  /* Spacing scale */
+  --s-1: .5rem;
+  --s-2: 1rem;
+  --s-3: 1.5rem;
+  --s-4: 2rem;
+  --s-5: 3rem;
+  --s-6: 4rem;
+  --s-7: 6rem;
+  --s-8: 9rem;
+}
+
+/* --- Base -------------------------------------------------- */
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+a { color: inherit; text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* --- Shared utility type ----------------------------------- */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: .75rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: .28em;
+  color: var(--graphite);
+}
+
+/* Underlined-on-hover link (no color, just an ink hairline) */
+.link {
+  border-bottom: 1px solid var(--hairline-strong);
+  padding-bottom: 1px;
+  transition: border-color .18s ease;
+}
+.link:hover,
+.link:focus-visible { border-color: var(--ink); }
+
+/* ============================================================
+   HOME
+   ============================================================ */
+.home {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--s-6) var(--s-4) var(--s-8);
+}
+
+.home__name {
+  max-width: 100%;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.75rem, 11vw, 8rem);
+  line-height: .95;
+  letter-spacing: -.03em;
+  overflow-wrap: break-word;
+}
+
+.home__role {
+  max-width: 100%;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: clamp(.72rem, 2.4vw, .9rem);
+  letter-spacing: .3em;
+  color: var(--graphite);
+  margin-top: var(--s-3);
+}
+
+.rule {
+  border: 0;
+  height: 1px;
+  width: 3rem;
+  background: var(--hairline-strong);
+  margin: var(--s-5) auto;
+}
+
+.home__nav {
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.1rem, 4vw, 2.6rem);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: .82rem;
+  letter-spacing: .18em;
+}
+
+.home__nav a {
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: border-color .18s ease;
+}
+.home__nav a:hover,
+.home__nav a:focus-visible { border-color: var(--ink); }
+
+.home__meta {
+  position: absolute;
+  bottom: var(--s-4);
+  left: 0;
+  right: 0;
+  padding-inline: var(--s-3);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: clamp(.6rem, 2.6vw, .68rem);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+}
+
+/* --- CRT turn-on intro (Home only) ------------------------- */
+/* Black screen → bright center line → expands vertically to reveal
+   the white page, with a brightness flash that settles. Runs on
+   every load. Pure CSS; disabled for reduced-motion users. */
+body.is-home { background: #000; }
+
+.crt-stage {
+  min-height: 100svh;
+  background: var(--paper);
+  transform-origin: center center;
+  will-change: transform, filter;
+  animation: crt-on 950ms cubic-bezier(.16, 1, .3, 1) both;
+}
+
+@keyframes crt-on {
+  0%   { transform: scaleY(0.004); filter: brightness(6) contrast(1.4); }
+  12%  { transform: scaleY(0.004); filter: brightness(6) contrast(1.4); }
+  55%  { transform: scaleY(1);     filter: brightness(2.4) contrast(1.1); }
+  70%  { transform: scaleY(1);     filter: brightness(1.35); }
+  100% { transform: scaleY(1);     filter: brightness(1) contrast(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.is-home { background: var(--paper); }
+  .crt-stage { animation: none; }
+}
+
+/* ============================================================
+   INTERNAL PAGES
+   ============================================================ */
+.backlink {
+  position: fixed;
+  top: var(--s-4);
+  left: var(--s-4);
+  z-index: 10;
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--graphite);
+  transition: color .18s ease;
+}
+.backlink:hover,
+.backlink:focus-visible { color: var(--ink); }
+
+.page {
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding: clamp(5rem, 13vh, 9rem) var(--s-4) var(--s-6);
+}
+
+.page__head + .prose,
+.page__head + * { margin-top: clamp(2.5rem, 6vh, 4rem); }
+
+.greeting {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--graphite);
+  margin-bottom: var(--s-1);
+}
+
+.page__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 7vw, 4rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+
+.page__role {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: .8rem;
+  letter-spacing: .22em;
+  color: var(--graphite);
+  margin-top: var(--s-2);
+}
+
+.page__head .eyebrow { margin-bottom: var(--s-3); }
+
+/* --- Prose ------------------------------------------------- */
+.prose p {
+  color: var(--ink-soft);
+  margin-bottom: var(--s-3);
+}
+.prose p:last-child { margin-bottom: 0; }
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -.01em;
+  margin-top: var(--s-5);
+  margin-bottom: var(--s-2);
+}
+
+/* --- Credo: the closing statement --------------------------- */
+.credo {
+  margin-top: clamp(3rem, 8vh, 5rem);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--hairline);
+}
+.credo__line {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 5.5vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+.credo__note {
+  margin-top: var(--s-2);
+  color: var(--graphite);
+  font-size: 1rem;
+}
+
+/* --- Experience / timeline (Professional Profile) --------- */
+.entry {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-top: 1px solid var(--hairline);
+}
+.entry__period {
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  letter-spacing: .04em;
+  color: var(--graphite);
+  padding-top: .2rem;
+}
+.entry__role { font-family: var(--font-display); font-weight: 600; }
+.entry__org  { color: var(--graphite); }
+.entry__desc { color: var(--ink-soft); margin-top: var(--s-1); }
+
+/* Labelled highlights inside an experience entry */
+.highlights {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--s-3);
+  display: grid;
+  gap: var(--s-3);
+}
+.highlight { color: var(--ink-soft); }
+.highlight__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--graphite);
+  margin-bottom: .35rem;
+}
+
+/* Independent projects (Professional Profile) */
+.project-item {
+  padding: var(--s-3) 0;
+  border-top: 1px solid var(--hairline);
+}
+.project-item__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -.01em;
+}
+.project-item__tag {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--graphite);
+  margin-top: .2rem;
+}
+.project-item__desc { color: var(--ink-soft); margin-top: var(--s-2); }
+
+/* --- Tag list ---------------------------------------------- */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: var(--s-2);
+  list-style: none;
+  padding: 0;
+}
+.tag {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink-soft);
+  border: 1px solid var(--hairline-strong);
+  padding: .3rem .55rem;
+}
+
+/* --- Projects (Portfolio) ---------------------------------- */
+.project {
+  padding: var(--s-4) 0;
+  border-top: 1px solid var(--hairline);
+}
+.project__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.4rem;
+  letter-spacing: -.01em;
+}
+.project__link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  letter-spacing: .04em;
+  color: var(--graphite);
+  margin-top: .35rem;
+}
+.project__desc { color: var(--ink-soft); margin-top: var(--s-2); }
+
+/* --- Contact list ------------------------------------------ */
+.contact-list { list-style: none; padding: 0; }
+.contact-row {
+  display: flex;
+  gap: var(--s-3);
+  padding: var(--s-3) 0;
+  border-top: 1px solid var(--hairline);
+}
+.contact-row__label {
+  flex: 0 0 8rem;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  color: var(--graphite);
+  padding-top: .15rem;
+}
+.contact-row__value { font-size: 1.05rem; }
+
+/* --- Footer (shared on internal pages) --------------------- */
+.site-foot {
+  max-width: var(--measure);
+  margin: var(--s-6) auto 0;
+  padding: var(--s-4);
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--graphite);
+  text-align: center;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 640px) {
+  .entry { grid-template-columns: 1fr; gap: var(--s-1); }
+  .contact-row { flex-direction: column; gap: .25rem; }
+  .contact-row__label { flex-basis: auto; }
+  .backlink { top: var(--s-3); left: var(--s-3); }
+}
