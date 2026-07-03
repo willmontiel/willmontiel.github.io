@@ -1,123 +1,87 @@
 <!DOCTYPE html>
-<html lang="es">
-	<head>
-		<!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-		<meta charset="utf-8" />
-		<title>William Montiel | Portfolio</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" type="text/css" href="css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="css/style.css">
-	</head>
-	<body>
-		<header class="image-gradient">
-			<div class="profile-picture-container">
-				<img class="profile-picture" width="80px" src="images/Will-small.png" alt="Will Montiel" />
-				<div class="profile-data">
-					<div class="profile-name">William Montiel</div>
-					<div class="profile-description">Fullstack Developer.</div>
-				</div>
-			</div>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Portfolio — William Montiel</title>
+	<meta name="description" content="Selected work by William Montiel — real-time fleet, telemetry, and B2B transport systems." />
 
-			<div class="menu-buttons">
-				<img src="images/menu.png" alt="open-menu" class="open-menu is-active" id="open-menu">
-				<img src="images/close.png" alt="close-menu" class="close-menu" id="close-menu">
-			</div>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+	<link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+	<a class="backlink" href="index.html">← Home</a>
 
-			<nav class="menu" id="menu">
-				<ul>
-					<li><a href="index.html" title="Inicio">Home</a></li>
-					<li><a href="professional-profile.html" title="¿Quién soy?">Who am I?</a></li>
-					<li class="link-active"><a href="#" title="Portafolio">Portfolio</a></li>
-				</ul>
-			</nav>
+	<main class="page">
+		<header class="page__head">
+			<p class="eyebrow">Portfolio</p>
+			<h1 class="page__name">William Montiel</h1>
+			<p class="page__role">Senior Software Developer</p>
 		</header>
 
-		<section class="section" id="portfolio-data">
-			<article class="article">
-				<h2>Portfolio</h2>
-				<hr />
-				<p>
-					I have been working for 11 years as software developer, so I had worked in a lot of differents platforms, technologies and services. The following are the most importants:
+		<div class="prose">
+			<p>
+				A few of the systems I've helped design and build — most of them running in real time,
+				at scale, across web, mobile, and cloud.
+			</p>
+
+			<article class="project">
+				<h2 class="project__title">Transportes Ejecutivos Platform</h2>
+				<a class="project__link link" href="https://app.transportesejecutivos.com" target="_blank" rel="noopener">app.transportesejecutivos.com ↗</a>
+				<p class="project__desc">
+					An end-to-end B2B transportation ecosystem I architected and built as the sole
+					engineer — owning database design, API, server configuration, and frontend. It
+					includes a fleet-administration dashboard (drivers, vehicles, passengers), automated
+					reporting synced with Google Drive, a native Android app for drivers, and a React
+					Native app for passenger booking.
 				</p>
-				<ul>
-					<li class="pt-0">
-						
-							Email Marketing:
-						    The platform main function is send massive mails across an own MTA. This application offers real time
-						    statistics and a lot of functionalities to the user. It was build with PHP(<a href="https://phalconphp.com/es/" title="Phalconphp" target="_blank">Phalconphp</a>),
-						    HTML, JS (Ember JS), CSS(LESS) and MySQL.
-          </li>
-          
-          <li>
-						
-							Transporting Service:
-           
-            The application main function is to be an operative center for to check the transporting services status. The user can create
-            services, to assign services to drivers, to check the drivers availability, to check the drivers real time location, and more. It was build with PHP(<a href="https://phalconphp.com/es/" title="Phalconphp" target="_blank">Phalconphp</a>),
-            HTML, JS (Angular JS), CSS(LESS), MySQL and MongoDB.
-          </li>
-          
-          <li>
-						
-							Transporting Service Driver App:
-            
-	    The application main function is to show a transporting services list assigned to the driver wich is the final user, also
-            with this app the drivers can send stats like location and responsive timing of a service. It was build with Android Native Java and the API is in PHP.
-          </li>
-          
-          <li>
-						
-							Tracking Services:
-            This is the bigger platform that I had worked, this platforms offers realtime location of each vehicle on a customer fleet. register millions of data every day. The customer can see the vehicles location in realtime in a map.
-		  Also has statistics, reports, realtime video, realtime alerts (hard turns, speed, hits, etc). It was build using AWS services, lambda, appsync, graphQL, cognito, MySQL, dynamoDB, react, react-native,
-		  stepfunctions, load balance, etc.
-		
-		
-            
-					</li>
-					
+				<ul class="tags">
+					<li class="tag">PHP · Phalcon</li>
+					<li class="tag">MySQL</li>
+					<li class="tag">MongoDB</li>
+					<li class="tag">Angular</li>
+					<li class="tag">Android</li>
+					<li class="tag">React Native</li>
 				</ul>
 			</article>
-		</section>
 
-		<footer>
-			<h3>
-				Contact me
-			</h3>
-			<figure>
-				<a href="https://co.linkedin.com/in/willmontieldeveloper" target="_blank">
-					<img class="img-social-networks" src="images/linkedin.png" alt="Contact me on linkedin" />
-				</a>
-			</figure>
+			<article class="project">
+				<h2 class="project__title">Fleet Management &amp; Tracking</h2>
+				<span class="project__link">Zonar Systems</span>
+				<p class="project__desc">
+					Leading engineering strategy for fleet management and tracking software built with
+					cross-functional teams — modernizing workflows and introducing AI-driven engineering
+					tooling along the way.
+				</p>
+				<ul class="tags">
+					<li class="tag">React</li>
+					<li class="tag">TypeScript</li>
+					<li class="tag">React Native</li>
+					<li class="tag">Node.js</li>
+					<li class="tag">AWS</li>
+				</ul>
+			</article>
 
-			<figure>
-				<a href="https://github.com/willmontiel" target="_blank">
-					<img class="img-social-networks" src="images/github.png" alt="Contact me on github" />
-				</a>
-			</figure>
-			<div class="contact-data">
-				<div class="email">
-					willmontielg@gmail.com
-				</div>
-				<div class="phone">
-					(57) 313 702 2267
-				</div>
-			</div>
-			<div class="reserved-rights">
-				© William Montiel | 2025
-			</div>
-		</footer>
-		<script src="js/vendors/jquery-1.11.3.min.js"></script>
-		<script src="js/helper.js"></script>
-		<script>	
-			$(window).load(function() {
-				resizeMenu(getHeightElement("portfolio-data") + 130);
-			});
+			<article class="project">
+				<h2 class="project__title">GPS Telemetry Platform</h2>
+				<span class="project__link">TSO Mobile / GPS Trackit</span>
+				<p class="project__desc">
+					High-performance full-stack web and mobile applications for global telemetry and GPS
+					tracking — real-time data intake, mapping, and reporting tuned for scale.
+				</p>
+				<ul class="tags">
+					<li class="tag">React</li>
+					<li class="tag">TypeScript</li>
+					<li class="tag">Node.js</li>
+					<li class="tag">AWS</li>
+					<li class="tag">DynamoDB</li>
+				</ul>
+			</article>
+		</div>
 
-			window.addEventListener('resize', function(event) {
-				resizeMenu(getHeightElement("portfolio-data") + 130);
-			});
-		</script>
-	</body>
+		<footer class="site-foot">William Montiel · Cali, Colombia · © 2026</footer>
+	</main>
+</body>
 </html>
