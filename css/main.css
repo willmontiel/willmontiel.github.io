@@ -164,6 +164,33 @@ a { color: inherit; text-decoration: none; }
   color: var(--graphite);
 }
 
+/* --- CRT turn-on intro (Home only) ------------------------- */
+/* Black screen → bright center line → expands vertically to reveal
+   the white page, with a brightness flash that settles. Runs on
+   every load. Pure CSS; disabled for reduced-motion users. */
+body.is-home { background: #000; }
+
+.crt-stage {
+  min-height: 100svh;
+  background: var(--paper);
+  transform-origin: center center;
+  will-change: transform, filter;
+  animation: crt-on 950ms cubic-bezier(.16, 1, .3, 1) both;
+}
+
+@keyframes crt-on {
+  0%   { transform: scaleY(0.004); filter: brightness(6) contrast(1.4); }
+  12%  { transform: scaleY(0.004); filter: brightness(6) contrast(1.4); }
+  55%  { transform: scaleY(1);     filter: brightness(2.4) contrast(1.1); }
+  70%  { transform: scaleY(1);     filter: brightness(1.35); }
+  100% { transform: scaleY(1);     filter: brightness(1) contrast(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.is-home { background: var(--paper); }
+  .crt-stage { animation: none; }
+}
+
 /* ============================================================
    INTERNAL PAGES
    ============================================================ */
