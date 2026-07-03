@@ -272,6 +272,46 @@ a { color: inherit; text-decoration: none; }
 .entry__org  { color: var(--graphite); }
 .entry__desc { color: var(--ink-soft); margin-top: var(--s-1); }
 
+/* Labelled highlights inside an experience entry */
+.highlights {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--s-3);
+  display: grid;
+  gap: var(--s-3);
+}
+.highlight { color: var(--ink-soft); }
+.highlight__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--graphite);
+  margin-bottom: .35rem;
+}
+
+/* Independent projects (Professional Profile) */
+.project-item {
+  padding: var(--s-3) 0;
+  border-top: 1px solid var(--hairline);
+}
+.project-item__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: -.01em;
+}
+.project-item__tag {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  color: var(--graphite);
+  margin-top: .2rem;
+}
+.project-item__desc { color: var(--ink-soft); margin-top: var(--s-2); }
+
 /* --- Tag list ---------------------------------------------- */
 .tags {
   display: flex;
