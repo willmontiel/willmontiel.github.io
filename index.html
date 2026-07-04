@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
 	<title>William Montiel — Senior Software Engineer</title>
 	<meta name="description" content="William Montiel — Senior Software Engineer. Real-time, high-scale systems for logistics and fleet tracking." />
 
@@ -10,6 +11,36 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 	<link rel="stylesheet" href="css/main.css" />
+
+	<script>
+		/* CRT intro: "arm" (black + bright line) before the first paint, then
+		   play once fonts + layout are ready — so the effect is never missed
+		   on a cold, uncached load. Skipped for reduced-motion / no-JS. */
+		(function () {
+			var root = document.documentElement;
+			if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+			root.classList.add('crt-arm');
+			var played = false;
+			function play() {
+				if (played) return;
+				played = true;
+				root.classList.remove('crt-arm');
+				root.classList.add('crt-play');
+				var stage = document.querySelector('.crt-stage');
+				if (stage) stage.addEventListener('animationend', function () {
+					root.classList.remove('crt-play'); /* clean up → normal page */
+				}, { once: true });
+			}
+			function start() { requestAnimationFrame(function () { requestAnimationFrame(play); }); }
+			function whenReady() {
+				if (document.fonts && document.fonts.ready) document.fonts.ready.then(start);
+				else start();
+				setTimeout(play, 2000); /* safety cap for slow/hung font loads */
+			}
+			if (document.readyState !== 'loading') whenReady();
+			else document.addEventListener('DOMContentLoaded', whenReady);
+		})();
+	</script>
 </head>
 <body class="is-home">
 	<div class="crt-stage">
@@ -28,5 +59,31 @@
 			<footer class="home__meta">Cali, Colombia · 3.4516° N 76.5320° W</footer>
 		</main>
 	</div>
+
+	<script>
+		/* Home nav — terminal-decode scramble on hover.
+		   Colour (stays orange while hovered) is handled in CSS. */
+		(function () {
+			if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+			var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/()=<>*+';
+			document.querySelectorAll('.home__nav a').forEach(function (el) {
+				var label = el.textContent;
+				el.addEventListener('mouseenter', function () {
+					var frame = 0;
+					clearInterval(el._it);
+					el._it = setInterval(function () {
+						var out = '';
+						for (var i = 0; i < label.length; i++) {
+							out += (i < frame / 2) ? label[i] : CHARS[Math.floor(Math.random() * CHARS.length)];
+						}
+						el.textContent = out;
+						if (frame / 2 >= label.length) { clearInterval(el._it); el.textContent = label; }
+						frame++;
+					}, 35);
+				});
+				el.addEventListener('mouseleave', function () { clearInterval(el._it); el.textContent = label; });
+			});
+		})();
+	</script>
 </body>
 </html>

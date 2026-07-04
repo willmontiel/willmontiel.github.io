@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" role="img" aria-label="William Montiel">
+  <g fill="none" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round">
+    <!-- W (first name) -->
+    <polyline points="14,20 32,110 50,20 68,110 86,20" stroke="#0a0a0a"/>
+    <!-- M (last name) — vertical mirror of the W, drawn on top -->
+    <polyline points="14,110 32,20 50,110 68,20 86,110" stroke="#FF4A1C"/>
+  </g>
+</svg>
