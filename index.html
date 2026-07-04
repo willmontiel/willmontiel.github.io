@@ -3,6 +3,12 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<script>
+		/* Apply saved theme before first paint (default: light) */
+		(function () {
+			try { if (localStorage.getItem('theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+		})();
+	</script>
 	<link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
 	<title>William Montiel — Senior Software Engineer</title>
 	<meta name="description" content="William Montiel — Senior Software Engineer. Real-time, high-scale systems for logistics and fleet tracking." />
@@ -43,6 +49,15 @@
 	</script>
 </head>
 <body class="is-home">
+	<button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle theme">
+		<svg class="theme-toggle__icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+			<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+		</svg>
+		<svg class="theme-toggle__icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+			<circle cx="12" cy="12" r="4" />
+			<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+		</svg>
+	</button>
 	<div class="crt-stage">
 		<main class="home">
 			<h1 class="home__name">William Montiel</h1>
@@ -85,5 +100,6 @@
 			});
 		})();
 	</script>
+	<script src="js/theme.js" defer></script>
 </body>
 </html>

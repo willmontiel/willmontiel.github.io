@@ -47,6 +47,25 @@ picture { max-width: 100%; display: block; }
   --s-8: 9rem;
 }
 
+/* Dark theme — opt-in via the toggle (default is light). Flips the
+   monochrome tokens; the orange accent stays constant across themes. */
+:root[data-theme="dark"] {
+  --paper:            #0d0d0d;
+  --ink:              #f4f4f4;
+  --ink-soft:         #c6c6c6;
+  --graphite:         #8c8c8c;
+  --hairline:         #242424;
+  --hairline-strong:  #3a3a3a;
+}
+
+/* Repaint smoothly when the theme flips (not on initial load / motion-averse) */
+html:not(.crt-arm):not(.crt-play) body {
+  transition: background-color .3s ease, color .3s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  html body { transition: none; }
+}
+
 /* --- Base -------------------------------------------------- */
 body {
   background: var(--paper);
@@ -223,6 +242,34 @@ html.crt-play .crt-stage {
 }
 .backlink:hover,
 .backlink:focus-visible { color: var(--accent); }
+
+/* Theme toggle — bare icon that mirrors the backlink in the opposite corner */
+.theme-toggle {
+  position: fixed;
+  top: calc(var(--s-4) - .7rem);
+  right: calc(var(--s-4) - .7rem);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .7rem;
+  border: 0;
+  background: transparent;
+  color: var(--graphite);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color .18s ease, opacity .4s ease;
+}
+.theme-toggle:hover,
+.theme-toggle:focus-visible { color: var(--accent); }
+.theme-toggle__icon { width: 1.2rem; height: 1.2rem; display: block; }
+.theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun  { display: block; }
+
+/* Hidden while the Home CRT intro is armed or playing */
+html.crt-arm .theme-toggle,
+html.crt-play .theme-toggle { opacity: 0; pointer-events: none; }
 
 .page {
   max-width: var(--measure);
@@ -474,4 +521,5 @@ html.crt-play .crt-stage {
   .contact-row { flex-direction: column; gap: .25rem; }
   .contact-row__label { flex-basis: auto; }
   .backlink { top: var(--s-3); left: var(--s-3); }
+  .theme-toggle { top: calc(var(--s-3) - .7rem); right: calc(var(--s-3) - .7rem); }
 }
