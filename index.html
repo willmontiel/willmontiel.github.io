@@ -60,29 +60,57 @@
 	</button>
 	<div class="crt-stage">
 		<main class="home">
-			<h1 class="home__name">William Montiel</h1>
-			<p class="home__role">Senior Software Engineer</p>
+			<div class="home__block">
+				<h1 class="home__name">William Montiel</h1>
+				<p class="home__role">Senior Software Engineer</p>
 
-			<hr class="rule" />
+				<hr class="rule" />
 
-			<nav class="home__nav" aria-label="Primary">
-				<a href="about.html">About</a>
-				<a href="portfolio.html">Portfolio</a>
-				<a href="contact.html">Contact</a>
-			</nav>
+				<nav class="home__nav" aria-label="Primary">
+					<a href="about.html">About</a>
+					<a href="portfolio.html">Portfolio</a>
+					<a href="contact.html">Contact</a>
+				</nav>
+			</div>
 
 			<footer class="home__meta">Cali, Colombia · 3.4516° N 76.5320° W</footer>
 		</main>
 	</div>
 
 	<script>
-		/* Home nav — terminal-decode scramble on hover.
-		   Colour (stays orange while hovered) is handled in CSS. */
+		/* Home nav — "channel change" on click (old-TV zap, then navigate) plus a
+		   terminal-decode scramble on hover. Colour (stays orange while hovered) is
+		   handled in CSS. Skipped for reduced-motion / no-JS. */
 		(function () {
 			if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 			var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/()=<>*+';
-			document.querySelectorAll('.home__nav a').forEach(function (el) {
+			var links = document.querySelectorAll('.home__nav a');
+
+			/* Preload the zap so the first click fires it instantly */
+			var tv = new Audio('sounds/old-tv-sound.mp3');
+			tv.preload = 'auto';
+
+			links.forEach(function (el) {
 				var label = el.textContent;
+
+				/* Play the zap, then follow the link. Navigating would cut the audio
+				   short, so defer it — until the sound ends, capped so it never drags. */
+				el.addEventListener('click', function (e) {
+					if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+					var href = el.getAttribute('href');
+					if (!href) return;
+					e.preventDefault();
+					var went = false;
+					function go() { if (went) return; went = true; window.location.href = href; }
+					try {
+						tv.currentTime = 0;
+						var p = tv.play();
+						if (p && typeof p.catch === 'function') p.catch(go);
+					} catch (err) { go(); }
+					tv.addEventListener('ended', go, { once: true });
+					setTimeout(go, 650);
+				});
+
 				el.addEventListener('mouseenter', function () {
 					var frame = 0;
 					clearInterval(el._it);
