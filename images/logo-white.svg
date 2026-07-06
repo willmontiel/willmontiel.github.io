@@ -1,14 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172 120" role="img" aria-label="William Montiel">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 196 120" role="img" aria-label="William Montiel">
   <!-- White variant for dark backgrounds. Accent stays constant. -->
   <g fill="none" stroke-width="11" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="3">
-    <polyline points="12,16 41,104 70,16 99,104 128,16" stroke="#ffffff"/>
-    <polyline points="12,104 41,16 70,104 99,16 128,104" stroke="#FF4A1C"/>
+    <polyline points="12,16 42,104 72,16 102,104 132,16" stroke="#ffffff"/>
+    <polyline points="27,16 57,104 87,16 117,104 147,16" stroke="#FF4A1C"/>
   </g>
   <g stroke="none">
-    <polygon points="148,36 166,36 148,54" fill="#ffffff"/>
-    <polygon points="166,36 166,54 148,54" fill="#FF4A1C"/>
-    <polygon points="148,66 166,66 148,84" fill="#ffffff"/>
-    <polygon points="166,66 166,84 148,84" fill="#FF4A1C"/>
-    <polygon points="148,84 162,84 146,104" fill="#FF4A1C"/>
+    <polygon points="166,36 184,36 166,54" fill="#ffffff"/>
+    <polygon points="184,36 184,54 166,54" fill="#FF4A1C"/>
+    <polygon points="166,66 184,66 166,84" fill="#ffffff"/>
+    <polygon points="184,66 184,84 166,84" fill="#FF4A1C"/>
+    <polygon points="166,84 180,84 164,104" fill="#FF4A1C"/>
   </g>
 </svg>

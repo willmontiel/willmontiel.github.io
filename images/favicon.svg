@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 120" role="img" aria-label="William Montiel">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" role="img" aria-label="William Montiel">
   <style>
     .ink { stroke: #0a0a0a; }
     @media (prefers-color-scheme: dark) { .ink { stroke: #ffffff; } }
   </style>
-  <!-- WM monogram only (no semicolon) so it stays legible at favicon sizes -->
+  <!-- WM monogram only (parallel-offset weave, no semicolon) for favicon sizes -->
   <g fill="none" stroke-width="13" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="3">
-    <polyline class="ink" points="12,16 41,104 70,16 99,104 128,16"/>
-    <polyline points="12,104 41,16 70,104 99,16 128,104" stroke="#FF4A1C"/>
+    <polyline class="ink" points="12,16 42,104 72,16 102,104 132,16"/>
+    <polyline points="27,16 57,104 87,16 117,104 147,16" stroke="#FF4A1C"/>
   </g>
 </svg>
