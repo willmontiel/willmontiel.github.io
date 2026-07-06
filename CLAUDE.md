@@ -133,6 +133,14 @@ the repo).
   Match the file you're editing (a linter reformats HTML to tabs).
 - Asset paths are relative and rooted at the repo root (`images/…`, `js/…`,
   `css/…`, `sounds/…`).
+- **Clean URLs:** GitHub Pages serves `about.html` at `/about` automatically, so
+  **link without the `.html`** — internal links are root-relative (`/about`,
+  `/portfolio`, `/contact`) and Home is `href="/"`. Files stay flat in the repo
+  root; do **not** move them into folders (relative asset paths keep working
+  because the page is served at a no-trailing-slash URL). Caveat: the
+  extensionless resolution is a GitHub Pages feature — `python3 -m http.server`
+  and `file://` will 404 on those links locally, so open the `.html` file
+  directly when previewing.
 - UI copy is in **English**; the owner authors his own bio / portfolio copy.
 - **New page checklist:** copy an internal page's `<head>` (theme anti-FOUC
   snippet + font `<link>`s + `main.css`); include `theme.js`, `glitch.js`, and
