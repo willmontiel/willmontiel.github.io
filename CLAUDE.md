@@ -35,8 +35,11 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
 - **Dark theme:** `:root[data-theme="dark"]` overrides the neutrals
   (paper→`#0d0d0d`, ink→`#f4f4f4`, …). The **orange accent stays constant** in
   both themes — this is intentional.
-- **Fonts:** `--font-display` Space Grotesk, `--font-body` Inter, `--font-mono`
-  Space Mono (eyebrows, nav, labels, metadata).
+- **Fonts:** `--font-display` Space Grotesk (headings), `--font-body` Inter
+  (prose), `--font-mono` Space Mono (nav, role, labels, tags), and `--font-retro`
+  **VT323** — a CRT terminal font used **sparingly** for retro accents (page
+  eyebrows, the Home coordinates + "Keep it simple." line, the NO SIGNAL screen).
+  Grotesk + Inter keep the base modern; VT323 carries the retro.
 - **Spacing:** `--s-1` (.5rem) … `--s-8` (9rem). **Layout:** `--measure` 42rem
   (reading column), `--page-max` 68rem.
 - Because everything uses `var(--…)`, new UI rarely needs per-component color
@@ -139,8 +142,9 @@ the repo).
   root; do **not** move them into folders (relative asset paths keep working
   because the page is served at a no-trailing-slash URL). Caveat: the
   extensionless resolution is a GitHub Pages feature — `python3 -m http.server`
-  and `file://` will 404 on those links locally, so open the `.html` file
-  directly when previewing.
+  and `file://` 404 on those links locally. For a faithful local preview run
+  **`python3 serve.py`** (a dev-only helper that resolves `/about` → `about.html`
+  like GitHub Pages); `file://` can't do clean URLs at all.
 - UI copy is in **English**; the owner authors his own bio / portfolio copy.
 - **New page checklist:** copy an internal page's `<head>` (theme anti-FOUC
   snippet + font `<link>`s + `main.css`); include `theme.js`, `glitch.js`, and
@@ -148,7 +152,9 @@ the repo).
 
 ## Local preview & visual verification
 
-- No build. Open files directly, or `python3 -m http.server 8000`.
+- No build. Run **`python3 serve.py`** then open http://localhost:8000 — this
+  resolves the site's clean URLs (`/about`, …) locally, like GitHub Pages does.
+  (`python3 -m http.server` and `file://` will 404 on the extensionless links.)
 - Headless Chrome is handy for screenshots:
   ```bash
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \

@@ -10,7 +10,7 @@ build step, nothing to install. It runs exactly as-is on GitHub Pages.
 ## Stack
 
 - Static HTML / CSS / vanilla JS (no bundler, widely-compatible ES)
-- Google Fonts: Space Grotesk (display), Inter (body), Space Mono (labels/mono)
+- Google Fonts: Space Grotesk (display), Inter (body), Space Mono (labels/mono), VT323 (retro CRT accents)
 - Hosted on **GitHub Pages** (served from the `master` branch) with a custom domain (`CNAME`)
 
 ## Pages
@@ -46,17 +46,23 @@ build step, nothing to install. It runs exactly as-is on GitHub Pages.
 ├── images/               # logo, adaptive favicon, portfolio screenshots
 ├── sounds/               # old-tv-sound.mp3
 ├── lab-effects.html      # temporary effects sandbox (unlinked, noindex)
+├── serve.py              # local dev server — clean-URL preview (not deployed)
 └── CNAME                 # custom domain
 ```
 
 ## Local development
 
-No tooling required — open the HTML files directly, or serve the folder:
+The site uses clean URLs (`/about`, `/portfolio`, …) that GitHub Pages resolves
+in production. To preview them locally the same way, run the tiny included dev
+server:
 
 ```bash
-python3 -m http.server 8000
+python3 serve.py
 # then open http://localhost:8000
 ```
+
+(`python3 -m http.server` and opening files via `file://` will 404 on the
+extensionless links — a plain static server can't resolve them.)
 
 ## Deploy
 

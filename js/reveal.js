@@ -65,10 +65,10 @@
 			ctx.fillStyle = 'rgba(6,6,6,0.4)'; ctx.fillRect(0, 0, CW, CH);
 			scan();
 			ctx.textAlign = 'center';
-			ctx.fillStyle = '#FF4A1C'; ctx.font = '700 16px "Space Mono", monospace';
-			ctx.fillText('NO SIGNAL', CW / 2, CH / 2 - 4);
-			ctx.fillStyle = 'rgba(235,235,235,0.85)'; ctx.font = '11px "Space Mono", monospace';
-			ctx.fillText(stack, CW / 2, CH / 2 + 18);
+			ctx.fillStyle = '#FF4A1C'; ctx.font = '30px "VT323", monospace';
+			ctx.fillText('NO SIGNAL', CW / 2, CH / 2);
+			ctx.fillStyle = 'rgba(235,235,235,0.85)'; ctx.font = '19px "VT323", monospace';
+			ctx.fillText(stack, CW / 2, CH / 2 + 24);
 			raf = requestAnimationFrame(frame);
 		}
 	}
