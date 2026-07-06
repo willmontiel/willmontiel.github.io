@@ -1,8 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" role="img" aria-label="William Montiel">
-  <g fill="none" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round">
-    <!-- W (first name) -->
-    <polyline points="14,20 32,110 50,20 68,110 86,20" stroke="#0a0a0a"/>
-    <!-- M (last name) — vertical mirror of the W, drawn on top -->
-    <polyline points="14,110 32,20 50,110 68,20 86,110" stroke="#FF4A1C"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 172 120" role="img" aria-label="William Montiel">
+  <!-- WM monogram: a W (ink) interlocked with its mirror M (accent). Square caps,
+       elongated, symmetric — they cross and interpolate. -->
+  <g fill="none" stroke-width="11" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="3">
+    <polyline points="12,16 41,104 70,16 99,104 128,16" stroke="#0a0a0a"/>
+    <polyline points="12,104 41,16 70,104 99,16 128,104" stroke="#FF4A1C"/>
+  </g>
+  <!-- semicolon — his signature; each mark split ink + accent (interpolated) -->
+  <g stroke="none">
+    <!-- dot: diagonal ink/accent split -->
+    <polygon points="148,36 166,36 148,54" fill="#0a0a0a"/>
+    <polygon points="166,36 166,54 148,54" fill="#FF4A1C"/>
+    <!-- comma: diagonal-split square + accent tail leaning down-left -->
+    <polygon points="148,66 166,66 148,84" fill="#0a0a0a"/>
+    <polygon points="166,66 166,84 148,84" fill="#FF4A1C"/>
+    <polygon points="148,84 162,84 146,104" fill="#FF4A1C"/>
   </g>
 </svg>

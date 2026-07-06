@@ -10,7 +10,7 @@ build step, nothing to install. It runs exactly as-is on GitHub Pages.
 ## Stack
 
 - Static HTML / CSS / vanilla JS (no bundler, widely-compatible ES)
-- Google Fonts: Space Grotesk (display), Inter (body), Space Mono (labels/mono), VT323 (retro CRT accents)
+- Google Fonts: Space Grotesk (display), Inter (body), Space Mono (labels/mono), DotGothic16 (dot-matrix retro accents)
 - Hosted on **GitHub Pages** (served from the `master` branch) with a custom domain (`CNAME`)
 
 ## Pages

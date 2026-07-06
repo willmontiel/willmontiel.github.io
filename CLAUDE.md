@@ -37,9 +37,10 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
   both themes — this is intentional.
 - **Fonts:** `--font-display` Space Grotesk (headings), `--font-body` Inter
   (prose), `--font-mono` Space Mono (nav, role, labels, tags), and `--font-retro`
-  **VT323** — a CRT terminal font used **sparingly** for retro accents (page
+  **DotGothic16** — a dot-matrix font used **sparingly** for retro accents (page
   eyebrows, the Home coordinates + "Keep it simple." line, the NO SIGNAL screen).
-  Grotesk + Inter keep the base modern; VT323 carries the retro.
+  Grotesk + Inter keep the base modern; DotGothic16 (letters built from dots, a
+  nod to Nothing-Phone / retro-LED displays) carries the retro.
 - **Spacing:** `--s-1` (.5rem) … `--s-8` (9rem). **Layout:** `--measure` 42rem
   (reading column), `--page-max` 68rem.
 - Because everything uses `var(--…)`, new UI rarely needs per-component color
