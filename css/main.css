@@ -58,12 +58,9 @@ picture { max-width: 100%; display: block; }
   --hairline-strong:  #3a3a3a;
 }
 
-/* Repaint smoothly when the theme flips (not on initial load / motion-averse) */
+/* Repaint smoothly when the theme flips (not on initial load) */
 html:not(.crt-arm):not(.crt-play) body {
   transition: background-color .3s ease, color .3s ease;
-}
-@media (prefers-reduced-motion: reduce) {
-  html body { transition: none; }
 }
 
 /* --- Base -------------------------------------------------- */
@@ -193,7 +190,7 @@ a { color: inherit; text-decoration: none; }
 /* JS-gated (see index.html): the intro is "armed" — a bright center
    line on black — from the first paint, then plays once fonts and
    layout are ready, so the effect is never missed on a cold load.
-   No-JS or reduced-motion falls back to a normal white page. */
+   No-JS falls back to a normal white page. */
 .crt-stage {
   min-height: 100svh;
   background: var(--paper);
@@ -222,13 +219,6 @@ html.crt-play .crt-stage {
   55%  { transform: scaleY(1);     filter: brightness(2.4) contrast(1.1); }
   70%  { transform: scaleY(1);     filter: brightness(1.35); }
   100% { transform: scaleY(1);     filter: brightness(1) contrast(1); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html.crt-arm body.is-home,
-  html.crt-play body.is-home { background: var(--paper); }
-  html.crt-arm .crt-stage,
-  html.crt-play .crt-stage { transform: none; filter: none; animation: none; }
 }
 
 /* ============================================================

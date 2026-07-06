@@ -21,10 +21,9 @@
 	<script>
 		/* CRT intro: "arm" (black + bright line) before the first paint, then
 		   play once fonts + layout are ready — so the effect is never missed
-		   on a cold, uncached load. Skipped for reduced-motion / no-JS. */
+		   on a cold, uncached load. No-op only when JS is unavailable. */
 		(function () {
 			var root = document.documentElement;
-			if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 			root.classList.add('crt-arm');
 			var played = false;
 			function play() {
@@ -80,9 +79,8 @@
 	<script>
 		/* Home nav — "channel change" on click (old-TV zap, then navigate) plus a
 		   terminal-decode scramble on hover. Colour (stays orange while hovered) is
-		   handled in CSS. Skipped for reduced-motion / no-JS. */
+		   handled in CSS. No-op only when JS is unavailable. */
 		(function () {
-			if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 			var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/()=<>*+';
 			var links = document.querySelectorAll('.home__nav a');
 

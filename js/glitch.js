@@ -2,9 +2,8 @@
    Same 90s glitch used on the Home nav links: chars shuffle then resolve left
    to right. Runs on hover AND once automatically on load (a decode-in intro) —
    on Home right after the CRT turn-on, on internal pages once fonts are ready.
-   Spaces are preserved so the word shape holds. Skipped for reduced-motion. */
+   Spaces are preserved so the word shape holds. */
 (function () {
-	if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 	var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/()=<>*+';
 
 	function scramble(el) {

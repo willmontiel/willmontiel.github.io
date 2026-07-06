@@ -2,10 +2,9 @@
    CRT screen that follows the cursor: the screenshot arrives pixelated with a
    signal tear + scanlines, then locks into focus. Elements with [data-nosignal]
    show an animated "NO SIGNAL" static screen with the tech stack instead.
-   Self-injects its canvas. Disabled for touch and reduced-motion. */
+   Self-injects its canvas. Disabled on touch. */
 (function () {
 	if (!window.matchMedia) return;
-	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 	if (window.matchMedia('(pointer: coarse)').matches) return;
 
 	var CW = 300, CH = 169;

@@ -69,13 +69,13 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
 - `glitch.js` — terminal-decode scramble for the name headings (`.home__name`,
   `.page__name`). Runs on **hover** and **once automatically on load** (a
   "decode-in"): on Home after the CRT `animationend`; on internal pages after
-  `document.fonts.ready`. Preserves spaces. No-op under `prefers-reduced-motion`.
+  `document.fonts.ready`. Preserves spaces.
 - `bg.js` — phosphor **dot-grid** cursor background. Self-injects a `.fx-bg`
   canvas (`z-index:-1`, above the page background, below content). Dots near the
   cursor brighten toward `--accent`. **Internal pages only** (not Home).
-  Disabled for `prefers-reduced-motion` and `pointer: coarse` (touch).
+  Disabled on touch (`pointer: coarse`).
 - `reveal.js` — portfolio **project reveal**. Self-injects a `.fx-preview` canvas
-  that follows the cursor. Disabled for reduced-motion / touch. **Only included
+  that follows the cursor. Disabled on touch. **Only included
   on `portfolio.html`.** See below for the markup contract.
 - **Inline scripts:** CRT gating (in `index.html` `<head>` — arms
   `crt-arm`/`crt-play` on `<html>` before first paint, plays on `fonts.ready`
@@ -95,13 +95,14 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
 ## Effects & the gating rule
 
 - **CRT turn-on intro:** Home only; JS-gated via `crt-arm`/`crt-play` classes.
-  Reduced-motion / no-JS → plain white page.
+  No-JS → plain white page.
 - **Home nav links:** hover glitch scramble + `sounds/old-tv-sound.mp3` on click.
 - **Name decode-in + hover scramble:** all pages (`glitch.js`).
 - **Dot-grid background:** internal pages (`bg.js`). **Project reveal:** portfolio.
-- **Rule of thumb:** every motion / audio / cursor effect must no-op under
-  `prefers-reduced-motion`; cursor effects must also no-op on touch
-  (`pointer: coarse`). Follow this for anything new.
+- **Rule of thumb:** cursor effects must no-op on touch (`pointer: coarse`) —
+  there's no cursor to follow. Effects intentionally do **not** gate on
+  `prefers-reduced-motion`: Windows over-reports it (desktop animations off →
+  `reduce`), which made the whole site look dead there. Follow this for new work.
 
 ## Portfolio reveal — how to add or change one
 

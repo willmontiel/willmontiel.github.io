@@ -31,7 +31,7 @@ build step, nothing to install. It runs exactly as-is on GitHub Pages.
 - **Cursor-reactive phosphor dot-grid** background on the internal pages
 - **Project reveal** on the portfolio — screenshots arrive with a pixel-dissolve CRT
   effect; entries without a screenshot show an animated **"NO SIGNAL"** screen
-- Respects `prefers-reduced-motion`; cursor effects are disabled on touch devices
+- Cursor effects (dot-grid, project reveal) are disabled on touch devices
 
 ## Project structure
 

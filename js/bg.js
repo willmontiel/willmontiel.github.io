@@ -1,10 +1,9 @@
 /* Phosphor dot-grid background (internal pages only).
    A faint dot grid; dots near the cursor light up and lean toward the orange
-   accent, like phosphors under the beam. Self-injects its canvas. Disabled for
-   touch (no cursor) and reduced-motion. Adapts to the light/dark theme. */
+   accent, like phosphors under the beam. Self-injects its canvas. Disabled on
+   touch (no cursor). Adapts to the light/dark theme. */
 (function () {
 	if (!window.matchMedia) return;
-	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 	if (window.matchMedia('(pointer: coarse)').matches) return;
 
 	var ACCENT = [255, 74, 28];
