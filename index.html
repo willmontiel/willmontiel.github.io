@@ -139,6 +139,47 @@
 			});
 		})();
 	</script>
+	<script>
+		/* Floppy on touch (no hover): rest exploded, auto-assemble once when it
+		   scrolls into view — so the effect is never missed — then a tap toggles
+		   assemble/disassemble. Desktop keeps the :hover behaviour; with JS off,
+		   the CSS shows the disk assembled and static. */
+		(function () {
+			var stage = document.querySelector('.fp-stage');
+			if (!stage) return;
+			if (!window.matchMedia || !window.matchMedia('(hover: none)').matches) return;
+
+			/* Snap to the exploded state without animating the pieces apart. */
+			stage.classList.add('fp-js', 'fp-noanim');
+			void stage.offsetWidth;              /* commit the exploded layout */
+			stage.classList.remove('fp-noanim');
+
+			var armed = true;
+			function assemble() {
+				if (!armed) return;
+				armed = false;
+				stage.classList.add('is-on');
+			}
+
+			/* Auto-assemble once, when the disk is actually on screen. */
+			if ('IntersectionObserver' in window) {
+				var io = new IntersectionObserver(function (entries) {
+					for (var i = 0; i < entries.length; i++) {
+						if (entries[i].isIntersecting) { assemble(); io.disconnect(); break; }
+					}
+				}, { threshold: 0.4 });
+				io.observe(stage);
+			} else {
+				setTimeout(assemble, 700);
+			}
+
+			/* Tap toggles assemble/disassemble thereafter. */
+			stage.addEventListener('click', function () {
+				armed = false;
+				stage.classList.toggle('is-on');
+			});
+		})();
+	</script>
 	<script src="js/theme.js" defer></script>
 	<script src="js/type.js" defer></script>
 </body>

@@ -250,8 +250,20 @@ a { color: inherit; text-decoration: none; }
 .fp-shell-front { transition-delay: .24s; }
 
 @media (hover: none) {
+  /* No-JS fallback: there's no cursor to assemble the disk, so show it
+     assembled and static. */
   .fp-piece { transform: translate(var(--ax, 0), var(--ay, 0)); transition: none; }
   .fp-stage { cursor: default; }
+
+  /* JS takes over on touch (adds .fp-js): rest exploded, auto-assemble once
+     when scrolled into view, then a tap toggles .is-on to re-play. */
+  .fp-stage.fp-js .fp-piece {
+    transform: translate(0, 0);
+    transition: transform .55s cubic-bezier(.34, 1.42, .5, 1), opacity .3s ease;
+  }
+  .fp-stage.fp-js.is-on .fp-piece { transform: translate(var(--ax, 0), var(--ay, 0)); }
+  /* .fp-noanim snaps to the exploded state on load without animating apart. */
+  .fp-stage.fp-noanim .fp-piece { transition: none; }
 }
 
 /* Name typewriter (type.js): the name types in behind a block cursor, painted
@@ -668,4 +680,9 @@ body:not(.is-home):not(.is-lab)::after {
   .contact-row__label { flex-basis: auto; }
   .backlink { top: var(--s-3); left: var(--s-3); }
   .theme-toggle { top: calc(var(--s-3) - .7rem); right: calc(var(--s-3) - .7rem); }
+
+  /* Home: tighten the signature + coordinates and shrink the floppy on phones. */
+  .home__credo { font-size: .72rem; }
+  .home__meta { font-size: .58rem; letter-spacing: .06em; }
+  .home__disk { max-width: 300px; }
 }
