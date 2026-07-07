@@ -39,7 +39,7 @@
 	function draw() {
 		ctx.fillStyle = rgba(paper(), 1); ctx.fillRect(0, 0, W, H);
 		ctx.font = '14px "Space Mono", monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-		var ic = ink(), R = 150;
+		var ic = ink(), R = 95;
 		for (var i = 0; i < cells.length; i++) {
 			var c = cells[i], dx = c.x - mx, dy = c.y - my, near = 0, d = Math.sqrt(dx * dx + dy * dy);
 			if (d < R) near = 1 - d / R;

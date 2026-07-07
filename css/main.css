@@ -317,12 +317,28 @@ body:not(.is-home)::before {
   background: linear-gradient(to bottom, var(--paper) 0, var(--paper) 3.5rem, transparent);
 }
 
-/* Cursor FX (internal pages): phosphor dot-grid background (js/bg.js) and the
+/* Reading backdrop (internal pages): a paper band behind the text column that
+   fades into the cursor background at the sides, so the effect never competes
+   with the prose. Sits above the .fx-bg canvas, below the content. */
+body:not(.is-home):not(.is-lab)::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(to right,
+    transparent calc(50% - 30rem),
+    var(--paper) calc(50% - 23rem),
+    var(--paper) calc(50% + 23rem),
+    transparent calc(50% + 30rem));
+}
+
+/* Cursor FX (internal pages): swappable background (js/bg-effects/) and the
    project reveal screen (js/reveal.js). Canvases are injected by their scripts. */
 .fx-bg {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
 }
 .fx-preview {
