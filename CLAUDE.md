@@ -83,9 +83,11 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
   (`z-index:-1`, above the page background, below content), reacts to the cursor
   toward `--accent`, and is disabled on touch (`pointer: coarse`). Include
   **exactly one** per page — swap the effect by changing that one `<script>`.
-  Current pick: **`binary.js`** (0/1 grid). Also available: `matrix-rain.js`,
-  `code-flashlight.js`, `type-trail.js`, `circuit.js`, and `dot-grid.js` (the
-  retired phosphor original). Prototype/compare them in `lab-effects.html`.
+  Current pick: **`code-flashlight.js`** (page is faint source code revealed only
+  in a soft halo around the cursor; halo radius `R` halved to 88). Also available:
+  `binary.js` (0/1 grid), `matrix-rain.js`, `type-trail.js`, `circuit.js`, and
+  `dot-grid.js` (the retired phosphor original). Prototype/compare them in
+  `lab-effects.html`.
 - `reveal.js` — **shared hover preview** (the single place this effect lives).
   Self-injects a `.fx-preview` canvas that follows the cursor and pops a CRT
   screen for any `[data-shot]` / `[data-nosignal]` element; the screen
@@ -108,7 +110,7 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
 | portfolio | ✓ | ✓ | ✓ | ✓ | — |
 | contact | ✓ | ✓ | ✓ | — | — |
 
-**bg-fx** = one background from `js/bg-effects/` (currently `binary.js`).
+**bg-fx** = one background from `js/bg-effects/` (currently `code-flashlight.js`).
 
 ## Effects & the gating rule
 
@@ -118,7 +120,7 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
   `sounds/old-tv-sound.mp3` on click.
 - **Name typewriter:** all pages (`type.js`) — types in, cursor blinks, re-types on hover.
 - **Cursor background:** internal pages — one swappable effect from
-  `js/bg-effects/` (currently `binary.js`). **Reveal preview:** portfolio
+  `js/bg-effects/` (currently `code-flashlight.js`). **Reveal preview:** portfolio
   screenshots + about `.reveal-link` names (`reveal.js`).
 - **Rule of thumb:** cursor effects must no-op on touch (`pointer: coarse`) —
   there's no cursor to follow. Effects intentionally do **not** gate on
@@ -173,7 +175,7 @@ the repo).
 - UI copy is in **English**; the owner authors his own bio / portfolio copy.
 - **New page checklist:** copy an internal page's `<head>` (theme anti-FOUC
   snippet + font `<link>`s + `main.css`); include `theme.js`, `type.js`, and one
-  `js/bg-effects/*.js` (e.g. `binary.js`); add the `.backlink` and `.theme-toggle`
+  `js/bg-effects/*.js` (e.g. `code-flashlight.js`); add the `.backlink` and `.theme-toggle`
   markup near the top of `<body>`.
 
 ## Local preview & visual verification

@@ -47,6 +47,55 @@
 		}
 		.lab-switch button:hover { color: var(--accent); }
 		.lab-switch button.is-active { color: var(--paper); background: var(--ink); }
+
+		/* --- Floppy assembly demo (exploded → assembles on hover) --- */
+		.fp-demo { margin-top: var(--s-5); }
+		.fp-eyebrow {
+			font-family: var(--font-retro); font-size: .8rem; letter-spacing: .12em;
+			text-transform: uppercase; color: var(--graphite); text-align: center;
+		}
+		.fp-stage {
+			position: relative; width: 100%; max-width: 640px;
+			margin: var(--s-2) auto 0; aspect-ratio: 1376 / 768; cursor: pointer;
+		}
+		.fp-piece {
+			position: absolute; inset: 0; width: 100%; height: 100%;
+			pointer-events: none; user-select: none;
+			transform: translate(0, 0);            /* exploded (resting) */
+			transition: transform .55s cubic-bezier(.34, 1.42, .5, 1), opacity .3s ease;
+			will-change: transform;
+		}
+		/* assemble on hover: each piece slides to the centered stack via its own vector */
+		.fp-stage:hover .fp-piece { transform: translate(var(--ax, 0), var(--ay, 0)); }
+
+		/* per-piece assemble vectors — percent of own box, so resolution-independent.
+		   Each aligns its main outline's centre to the canvas centre (the hub lands on
+		   the disk centre). Generated + hand-tuned in the sandbox. */
+		.fp-shell-front { --ax:  34.59%; --ay: -0.29%; }
+		.fp-disk        { --ax:  14.19%; --ay:  0.05%; }
+		.fp-hub         { --ax:  -0.57%; --ay: -0.06%; }
+		.fp-frame       { --ax: -15.08%; --ay:  4.40%; }
+		.fp-shell-back  { --ax: -34.59%; --ay:  0.12%; }
+
+		/* stagger — back shell seats first, front shell last */
+		.fp-shell-back  { transition-delay: 0s; }
+		.fp-frame       { transition-delay: .06s; }
+		.fp-disk        { transition-delay: .12s; }
+		.fp-hub         { transition-delay: .18s; }
+		.fp-shell-front { transition-delay: .24s; }
+
+		.fp-hint {
+			font-family: var(--font-mono); font-size: .68rem; letter-spacing: .14em;
+			text-transform: uppercase; color: var(--graphite); text-align: center;
+			margin-top: var(--s-2);
+		}
+		.fp-hint b { color: var(--accent); font-weight: 700; }
+
+		/* touch: no cursor to hover → present the assembled floppy statically */
+		@media (hover: none) {
+			.fp-piece { transform: translate(var(--ax, 0), var(--ay, 0)); transition: none; }
+			.fp-stage { cursor: default; }
+		}
 	</style>
 </head>
 <body class="is-lab">
@@ -79,6 +128,19 @@
 			</p>
 			<p class="lab-desc" id="desc"></p>
 		</div>
+
+		<section class="fp-demo">
+			<p class="fp-eyebrow">Disquette · assembly</p>
+			<div class="fp-stage" role="img"
+				aria-label="Vista explosionada de un disquette de 3.5 pulgadas que se ensambla al pasar el cursor">
+				<img class="fp-piece fp-shell-back" src="images/animations/floppy-shell-back.svg" alt="" aria-hidden="true" />
+				<img class="fp-piece fp-frame" src="images/animations/floppy-frame.svg" alt="" aria-hidden="true" />
+				<img class="fp-piece fp-disk" src="images/animations/floppy-disk.svg" alt="" aria-hidden="true" />
+				<img class="fp-piece fp-hub" src="images/animations/floppy-hub.svg" alt="" aria-hidden="true" />
+				<img class="fp-piece fp-shell-front" src="images/animations/floppy-shell-front.svg" alt="" aria-hidden="true" />
+			</div>
+			<p class="fp-hint">Pasa el cursor → <b>ensambla</b></p>
+		</section>
 	</main>
 
 	<div class="lab-switch" role="group" aria-label="Fondo de cursor">
