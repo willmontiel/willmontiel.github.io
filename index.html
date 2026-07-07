@@ -140,37 +140,61 @@
 		})();
 	</script>
 	<script>
-		/* Floppy on touch (no hover): rest exploded, auto-assemble once when it
-		   scrolls into view — so the effect is never missed — then a tap toggles
-		   assemble/disassemble. Desktop keeps the :hover behaviour; with JS off,
-		   the CSS shows the disk assembled and static. */
+		/* Floppy on touch (no hover): rest assembled, then — once the CRT turn-on
+		   intro has finished — auto-disassemble when it's on screen, so the effect
+		   isn't hidden behind the black/collapsed stage. A tap toggles
+		   assemble/disassemble after that. Desktop keeps the :hover behaviour;
+		   with JS off, the CSS shows the disk assembled and static. */
 		(function () {
 			var stage = document.querySelector('.fp-stage');
 			if (!stage) return;
 			if (!window.matchMedia || !window.matchMedia('(hover: none)').matches) return;
 
-			/* Snap to the exploded state without animating the pieces apart. */
-			stage.classList.add('fp-js', 'fp-noanim');
-			void stage.offsetWidth;              /* commit the exploded layout */
+			/* Snap to the assembled state without animating — matches the no-JS paint. */
+			stage.classList.add('fp-js', 'is-on', 'fp-noanim');
+			void stage.offsetWidth;              /* commit the assembled layout */
 			stage.classList.remove('fp-noanim');
 
 			var armed = true;
-			function assemble() {
+			function disassemble() {
 				if (!armed) return;
 				armed = false;
-				stage.classList.add('is-on');
+				stage.classList.remove('is-on');
 			}
 
-			/* Auto-assemble once, when the disk is actually on screen. */
-			if ('IntersectionObserver' in window) {
-				var io = new IntersectionObserver(function (entries) {
-					for (var i = 0; i < entries.length; i++) {
-						if (entries[i].isIntersecting) { assemble(); io.disconnect(); break; }
-					}
-				}, { threshold: 0.4 });
-				io.observe(stage);
+			/* Auto-disassemble once, when the disk is actually on screen — after a
+			   short beat so the assembled disk is seen before it comes apart. */
+			function armAuto() {
+				if ('IntersectionObserver' in window) {
+					var io = new IntersectionObserver(function (entries) {
+						for (var i = 0; i < entries.length; i++) {
+							if (entries[i].isIntersecting) {
+								io.disconnect();
+								setTimeout(disassemble, 260);
+								break;
+							}
+						}
+					}, { threshold: 0.4 });
+					io.observe(stage);
+				} else {
+					setTimeout(disassemble, 260);
+				}
+			}
+
+			/* Hold off while the CRT turn-on intro is running (stage is black and
+			   collapsed) — otherwise the disk comes apart unseen and just appears
+			   already exploded. Start once the intro's animation ends. */
+			var root = document.documentElement;
+			if (root.classList.contains('crt-arm') || root.classList.contains('crt-play')) {
+				var crt = document.querySelector('.crt-stage');
+				var started = false;
+				function afterCrt() { if (started) return; started = true; armAuto(); }
+				if (crt) crt.addEventListener('animationend', function (e) {
+					if (e.animationName === 'crt-on') afterCrt();
+				});
+				setTimeout(afterCrt, 3200);      /* safety: intro cap (2s) + anim */
 			} else {
-				setTimeout(assemble, 700);
+				armAuto();
 			}
 
 			/* Tap toggles assemble/disassemble thereafter. */
