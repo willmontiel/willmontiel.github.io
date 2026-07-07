@@ -31,7 +31,6 @@ picture { max-width: 100%; display: block; }
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-body:    'Inter', system-ui, sans-serif;
   --font-mono:    'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  --font-retro:   'DotGothic16', ui-monospace, monospace;  /* dot-matrix retro accent */
 
   /* Layout */
   --measure:  42rem;   /* comfortable reading column */
@@ -90,7 +89,7 @@ a { color: inherit; text-decoration: none; }
 
 /* --- Shared utility type ----------------------------------- */
 .eyebrow {
-  font-family: var(--font-retro);
+  font-family: var(--font-mono);
   font-size: 1.15rem;
   font-weight: 400;
   text-transform: uppercase;
@@ -177,9 +176,9 @@ a { color: inherit; text-decoration: none; }
 .home__nav a:hover,
 .home__nav a:focus-visible { color: var(--accent); }
 
-/* Bottom cluster: credo signature + coordinates, pinned below the hero. */
+/* Bottom cluster: credo signature + coordinates, pinned to the bottom. */
 .home__foot {
-  margin-top: auto;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,20 +186,72 @@ a { color: inherit; text-decoration: none; }
 }
 
 .home__credo {
-  font-family: var(--font-retro);
-  font-size: clamp(1.15rem, 3.8vw, 1.4rem);
+  font-family: var(--font-mono);
+  font-size: clamp(.82rem, 2.4vw, .95rem);
   letter-spacing: .01em;
-  color: var(--ink-soft);
+  color: var(--graphite);
 }
 
 .home__meta {
   padding-inline: var(--s-3);
   text-align: center;
-  font-family: var(--font-retro);
-  font-size: clamp(.8rem, 2.8vw, .9rem);
+  font-family: var(--font-mono);
+  font-size: clamp(.66rem, 2vw, .74rem);
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--graphite);
+}
+
+/* --- Floppy assembly (Home; exploded → assembles on hover) -------------
+   Pieces are inline SVG: each has a paper-filled silhouette (.fp-sil) that
+   occludes the pieces behind it, with the orange outline on top — so the
+   assembled disk reads solid, not as overlapping wireframes. Theme-aware
+   (body = --paper). Sits centred between the nav block and the footer;
+   shows the assembled disk statically on touch. */
+.home__disk {
+  width: 100%;
+  max-width: 480px;      /* ~50% larger than the initial 320px */
+  margin: auto 0;        /* centre in the gap between the nav block and the footer */
+}
+.fp-stage {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 1376 / 768;
+  cursor: pointer;
+}
+.fp-piece {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+  fill: var(--accent);                   /* outline colour */
+  transform: translate(0, 0);            /* exploded (resting) */
+  transition: transform .55s cubic-bezier(.34, 1.42, .5, 1), opacity .3s ease;
+  will-change: transform;
+}
+.fp-piece .fp-sil { fill: var(--paper); }   /* solid body → occludes what's behind */
+.fp-stage:hover .fp-piece { transform: translate(var(--ax, 0), var(--ay, 0)); }
+
+/* per-piece assemble vectors — percent of own box, so resolution-independent */
+.fp-shell-front { --ax:  34.59%; --ay: -0.29%; }
+.fp-disk        { --ax:  14.19%; --ay:  0.05%; }
+.fp-hub         { --ax:  -0.57%; --ay: -0.06%; }
+.fp-frame       { --ax: -15.08%; --ay:  4.40%; }
+.fp-shell-back  { --ax: -34.59%; --ay:  0.12%; }
+
+/* stagger — back shell seats first, front shell last */
+.fp-shell-back  { transition-delay: 0s; }
+.fp-frame       { transition-delay: .06s; }
+.fp-disk        { transition-delay: .12s; }
+.fp-hub         { transition-delay: .18s; }
+.fp-shell-front { transition-delay: .24s; }
+
+@media (hover: none) {
+  .fp-piece { transform: translate(var(--ax, 0), var(--ay, 0)); transition: none; }
+  .fp-stage { cursor: default; }
 }
 
 /* Name typewriter (type.js): the name types in behind a block cursor, painted
