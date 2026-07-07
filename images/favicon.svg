@@ -1,11 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120" role="img" aria-label="William Montiel">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 741 580" role="img" aria-label="William Montiel">
   <style>
-    .ink { stroke: #0a0a0a; }
-    @media (prefers-color-scheme: dark) { .ink { stroke: #ffffff; } }
+    .ink { fill: #0a0a0a; }
+    @media (prefers-color-scheme: dark) { .ink { fill: #ffffff; } }
   </style>
-  <!-- WM monogram only (parallel-offset weave, no semicolon) for favicon sizes -->
-  <g fill="none" stroke-width="13" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="3">
-    <polyline class="ink" points="12,16 42,104 72,16 102,104 132,16"/>
-    <polyline points="27,16 57,104 87,16 117,104 147,16" stroke="#FF4A1C"/>
+  <!-- WM monogram only (the W+M zigzag, no semicolon) for favicon sizes -->
+  <g fill="#FF4A1C">
+    <polygon points="305,16 323.5,16 185.5,564 167,564"/>
+    <polygon points="305,16 323.5,16 459.5,564 441,564"/>
+    <polygon points="577,16 595.5,16 459.5,564 441,564"/>
+    <polygon points="558.5,16 595.5,16 725.5,564 688.5,564"/>
+  </g>
+  <g class="ink">
+    <polygon points="15.5,16 52.5,16 185.5,564 148.5,564"/>
+    <polygon points="286.5,16 305,16 167,564 148.5,564"/>
+    <polygon points="286.5,16 305,16 441,564 422.5,564"/>
+    <polygon points="558.5,16 577,16 441,564 422.5,564"/>
   </g>
 </svg>
