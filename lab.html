@@ -100,6 +100,28 @@
 			.fp-piece { transform: translate(var(--ax, 0), var(--ay, 0)); transition: none; }
 			.fp-stage { cursor: default; }
 		}
+
+		/* Font specimens — one block per family we use, to compare how each
+		   renders (the three --font-* tokens). */
+		.specimens { margin-top: var(--s-6); }
+		.specimens__title {
+			font-family: var(--font-display); font-weight: 700;
+			font-size: 1.4rem; letter-spacing: -.01em; margin-bottom: var(--s-3);
+		}
+		.specimen { margin-bottom: var(--s-4); }
+		.specimen__label {
+			font-family: var(--font-mono); font-size: .66rem; letter-spacing: .12em;
+			text-transform: uppercase; color: var(--graphite); margin-bottom: var(--s-1);
+		}
+		.specimen__label b { color: var(--accent); font-weight: 700; }
+		.specimen__name {
+			font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 700;
+			line-height: 1; letter-spacing: -.02em;
+		}
+		.specimen__text {
+			font-size: 1.05rem; line-height: 1.6;
+			margin-top: var(--s-1); color: var(--ink-soft);
+		}
 	</style>
 </head>
 <body class="is-lab">
@@ -132,6 +154,28 @@
 			</p>
 			<p class="lab-desc" id="desc"></p>
 		</div>
+
+		<section class="specimens" aria-label="Font specimens">
+			<h2 class="specimens__title">Fonts — the three we use</h2>
+
+			<div class="specimen" style="font-family: var(--font-display)">
+				<p class="specimen__label"><b>Space Grotesk</b> · display · var(--font-display) · el nombre usa esta</p>
+				<p class="specimen__name">William Montiel</p>
+				<p class="specimen__text">The quick brown fox jumps over the lazy dog. 0123456789 — Senior Software Engineer.</p>
+			</div>
+
+			<div class="specimen" style="font-family: var(--font-body)">
+				<p class="specimen__label"><b>Inter</b> · body / prose · var(--font-body)</p>
+				<p class="specimen__name">William Montiel</p>
+				<p class="specimen__text">The quick brown fox jumps over the lazy dog. 0123456789 — Senior Software Engineer.</p>
+			</div>
+
+			<div class="specimen" style="font-family: var(--font-mono)">
+				<p class="specimen__label"><b>Space Mono</b> · mono / terminal · var(--font-mono)</p>
+				<p class="specimen__name">William Montiel</p>
+				<p class="specimen__text">The quick brown fox jumps over the lazy dog. 0123456789 — Senior Software Engineer.</p>
+			</div>
+		</section>
 
 		<section class="fp-demo">
 			<p class="fp-eyebrow">Disquette · assembly</p>

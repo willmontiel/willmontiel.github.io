@@ -29,7 +29,7 @@ picture { max-width: 100%; display: block; }
 
   /* Type */
   --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body:    'Inter', system-ui, sans-serif;
+  --font-body:    var(--font-display);   /* trial: body text = Space Grotesk (was 'Inter', system-ui, sans-serif) */
   --font-mono:    'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* Layout */
@@ -365,6 +365,57 @@ html.crt-play .crt-stage {
 html.crt-arm .theme-toggle,
 html.crt-play .theme-toggle { opacity: 0; pointer-events: none; }
 
+/* Persistent top nav (internal pages) — so any page reaches any other without
+   a detour through Home. Replaces the lone "← Home" backlink; lives in the same
+   fixed top band as the old corner controls (the top fade keeps it crisp). The
+   WM monogram links Home; its ink weaves with the theme (currentColor), the
+   accent stays constant. Current page is marked in accent via aria-current. */
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-4);
+}
+.topnav__brand {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ink);
+  transition: opacity .18s ease;
+}
+.topnav__brand:hover,
+.topnav__brand:focus-visible { opacity: .65; }
+.topnav__logo { height: 1.3rem; width: auto; display: block; }
+.topnav__links {
+  display: flex;
+  align-items: center;
+  gap: clamp(.9rem, 3.6vw, 1.9rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: clamp(.62rem, 2.4vw, .74rem);
+  letter-spacing: .14em;
+}
+.topnav__links a { color: var(--graphite); transition: color .15s ease; }
+.topnav__links a:hover,
+.topnav__links a:focus-visible { color: var(--accent); }
+.topnav__links a[aria-current="page"] { color: var(--accent); }   /* you are here */
+
+/* The theme toggle rides inside the bar on internal pages (fixed corner on Home). */
+.topnav .theme-toggle {
+  position: static;
+  top: auto;
+  right: auto;
+  padding: .25rem;
+}
+
 /* Top fade (internal pages): content dissolves softly as it scrolls up
    behind the fixed corner controls — no hard-edged overlap. Solid near
    the top to keep the controls crisp, transparent below the header start. */
@@ -680,6 +731,10 @@ body:not(.is-home):not(.is-lab)::after {
   .contact-row__label { flex-basis: auto; }
   .backlink { top: var(--s-3); left: var(--s-3); }
   .theme-toggle { top: calc(var(--s-3) - .7rem); right: calc(var(--s-3) - .7rem); }
+
+  /* Top nav: tighten padding and link spacing so all three fit a phone row. */
+  .topnav { padding: var(--s-2) var(--s-3); gap: var(--s-1); }
+  .topnav__links { gap: .85rem; letter-spacing: .1em; }
 
   /* Home: tighten the signature + coordinates and shrink the floppy on phones. */
   .home__credo { font-size: .72rem; }

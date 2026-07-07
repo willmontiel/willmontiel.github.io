@@ -38,9 +38,9 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
 - **Fonts:** three families only — `--font-display` Space Grotesk (headings),
   `--font-body` Inter (prose), and `--font-mono` Space Mono (nav, role, labels,
   tags, page eyebrows, the Home coordinates + "Keep it simple." line, the NO
-  SIGNAL screen). Space Mono carries the retro/terminal accent. (A 4th font,
-  DotGothic16 `--font-retro`, was removed — the owner preferred fewer distinct
-  typefaces; its label/accent uses folded into Space Mono.)
+  SIGNAL screen). Space Mono carries the retro/terminal accent. (An earlier 4th
+  retro typeface was dropped — the owner preferred fewer distinct fonts; its
+  label/accent uses folded into Space Mono. Keep it at three.)
 - **Spacing:** `--s-1` (.5rem) … `--s-8` (9rem). **Layout:** `--measure` 42rem
   (reading column), `--page-max` 68rem.
 - Because everything uses `var(--…)`, new UI rarely needs per-component color
@@ -52,8 +52,16 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
   Centered `.home__block` (name / role / `<hr>` / nav) plus a `.home__meta`
   coordinate footer, which is anchored to the bottom via `margin-top:auto`
   (not `position:absolute`) so it never overlaps on short viewports. Home
-  deliberately has **no** backlink, top fade, or cursor background — it stays
-  clean and is the only page with the CRT intro.
+  deliberately has **no** top nav, top fade, or cursor background — it stays
+  clean and is the only page with the CRT intro. (Its own centered `.home__nav`
+  is the entry point to the internal pages.)
+- **Internal pages** (`about` / `portfolio` / `contact`) share a fixed `.topnav`
+  at the top: the **WM monogram** (inline SVG, ink weaves via `currentColor` so
+  it flips with the theme; accent constant) links Home, then `About · Portfolio ·
+  Contact` (the current page marked in accent via `aria-current="page"`), then the
+  `.theme-toggle`. It lives in the fixed top band (the top fade keeps it crisp)
+  and lets any page reach any other without a detour through Home. (`lab.html`
+  still uses the old `.backlink`.)
 - `about.html` — personal bio ("Hi, I'm"), prose story, `.credo` closing line.
   Family names in the prose are `.reveal-link`s (hover → photo via `reveal.js`).
 - `portfolio.html` — experience timeline (`.entry`), independent projects
@@ -181,8 +189,10 @@ the repo).
 - UI copy is in **English**; the owner authors his own bio / portfolio copy.
 - **New page checklist:** copy an internal page's `<head>` (theme anti-FOUC
   snippet + font `<link>`s + `main.css`); include `theme.js`, `type.js`, and one
-  `js/bg-effects/*.js` (e.g. `code-flashlight.js`); add the `.backlink` and `.theme-toggle`
-  markup near the top of `<body>`.
+  `js/bg-effects/*.js` (e.g. `code-flashlight.js`); add the `.topnav` markup near
+  the top of `<body>` (WM brand → Home, the three page links, and the
+  `.theme-toggle` — copy it from another internal page and set `aria-current="page"`
+  on this page's own link).
 
 ## Local preview & visual verification
 

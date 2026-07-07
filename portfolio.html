@@ -24,16 +24,37 @@
 </head>
 
 <body>
-	<a class="backlink" href="/">← Home</a>
-	<button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle theme">
-		<svg class="theme-toggle__icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-			<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-		</svg>
-		<svg class="theme-toggle__icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-			<circle cx="12" cy="12" r="4" />
-			<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-		</svg>
-	</button>
+	<nav class="topnav" aria-label="Site">
+		<a class="topnav__brand" href="/" aria-label="Home">
+			<svg class="topnav__logo" viewBox="0 0 196 120" role="img" aria-label="William Montiel — Home">
+				<g fill="none" stroke-width="11" stroke-linecap="square" stroke-linejoin="miter" stroke-miterlimit="3">
+					<polyline points="12,16 42,104 72,16 102,104 132,16" stroke="currentColor" />
+					<polyline points="27,16 57,104 87,16 117,104 147,16" stroke="#FF4A1C" />
+				</g>
+				<g stroke="none">
+					<polygon points="166,36 184,36 166,54" fill="currentColor" />
+					<polygon points="184,36 184,54 166,54" fill="#FF4A1C" />
+					<polygon points="166,66 184,66 166,84" fill="currentColor" />
+					<polygon points="184,66 184,84 166,84" fill="#FF4A1C" />
+					<polygon points="166,84 180,84 164,104" fill="#FF4A1C" />
+				</g>
+			</svg>
+		</a>
+		<ul class="topnav__links">
+			<li><a href="/about">About</a></li>
+			<li><a href="/portfolio" aria-current="page">Portfolio</a></li>
+			<li><a href="/contact">Contact</a></li>
+		</ul>
+		<button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle theme">
+			<svg class="theme-toggle__icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+			</svg>
+			<svg class="theme-toggle__icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<circle cx="12" cy="12" r="4" />
+				<path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+			</svg>
+		</button>
+	</nav>
 
 	<main class="page">
 		<header class="page__head">
