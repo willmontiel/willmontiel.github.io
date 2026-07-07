@@ -52,9 +52,10 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
   Centered `.home__block` (name / role / `<hr>` / nav) plus a `.home__meta`
   coordinate footer, which is anchored to the bottom via `margin-top:auto`
   (not `position:absolute`) so it never overlaps on short viewports. Home
-  deliberately has **no** backlink, top fade, or dot-grid background — it stays
+  deliberately has **no** backlink, top fade, or cursor background — it stays
   clean and is the only page with the CRT intro.
 - `about.html` — personal bio ("Hi, I'm"), prose story, `.credo` closing line.
+  Family names in the prose are `.reveal-link`s (hover → photo via `reveal.js`).
 - `portfolio.html` — experience timeline (`.entry`), independent projects
   (`.project-item`), technologies (`.tags`), education. Reveal targets are
   marked with data attributes (see below).
@@ -70,39 +71,55 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
   every page has a tiny inline `<head>` script that applies the saved theme
   before first paint — that snippet **must stay inline** (an external file loads
   too late and flashes).
-- `glitch.js` — terminal-decode scramble for the name headings (`.home__name`,
-  `.page__name`). Runs on **hover** and **once automatically on load** (a
-  "decode-in"): on Home after the CRT `animationend`; on internal pages after
-  `document.fonts.ready`. Preserves spaces.
-- `bg.js` — phosphor **dot-grid** cursor background. Self-injects a `.fx-bg`
-  canvas (`z-index:-1`, above the page background, below content). Dots near the
-  cursor brighten toward `--accent`. **Internal pages only** (not Home).
-  Disabled on touch (`pointer: coarse`).
-- `reveal.js` — portfolio **project reveal**. Self-injects a `.fx-preview` canvas
-  that follows the cursor. Disabled on touch. **Only included
-  on `portfolio.html`.** See below for the markup contract.
+- `type.js` — **terminal typewriter** for the name headings (`.home__name`,
+  `.page__name`). Types the name in behind a block cursor, then leaves the cursor
+  blinking. Runs **once on load** (on Home after the CRT `animationend`; on
+  internal pages after `document.fonts.ready`) and again **on hover**. Painted in
+  an absolute `.type-scr` overlay so the growing line never re-wraps the heading.
+  Replaced the old `glitch.js` name scramble — the site is pivoting from 90s-TV
+  toward a computer/terminal feel.
+- `js/bg-effects/*.js` — **swappable cursor backgrounds** (internal pages only,
+  not Home). Each is a self-contained drop-in that injects a `.fx-bg` canvas
+  (`z-index:-1`, above the page background, below content), reacts to the cursor
+  toward `--accent`, and is disabled on touch (`pointer: coarse`). Include
+  **exactly one** per page — swap the effect by changing that one `<script>`.
+  Current pick: **`binary.js`** (0/1 grid). Also available: `matrix-rain.js`,
+  `code-flashlight.js`, `type-trail.js`, `circuit.js`, and `dot-grid.js` (the
+  retired phosphor original). Prototype/compare them in `lab-effects.html`.
+- `reveal.js` — **shared hover preview** (the single place this effect lives).
+  Self-injects a `.fx-preview` canvas that follows the cursor and pops a CRT
+  screen for any `[data-shot]` / `[data-nosignal]` element; the screen
+  **auto-sizes to the image's aspect** (landscape screenshots, portrait photos).
+  Disabled on touch. Included on **`portfolio.html`** (project screenshots) and
+  **`about.html`** (the `.reveal-link` names). See below for the markup contract.
 - **Inline scripts:** CRT gating (in `index.html` `<head>` — arms
   `crt-arm`/`crt-play` on `<html>` before first paint, plays on `fonts.ready`
-  with a 2s safety cap, cleans up on `animationend`); Home nav scramble + old-TV
-  click sound (in `index.html` before `</body>` — navigation is deferred ~650ms
-  so the sound is heard before the page changes).
+  with a 2s safety cap, cleans up on `animationend`); Home nav **glitch** scramble
+  (the only 90s glitch left after `type.js` took over the name) + old-TV click
+  sound (in `index.html` before `</body>` — navigation is deferred ~650ms so the
+  sound is heard before the page changes).
 
 ### Which scripts each page loads
 
-| Page | theme | glitch | bg | reveal | inline (CRT + nav sound) |
+| Page | theme | type | bg-fx | reveal | inline (CRT + nav sound) |
 |------|:---:|:---:|:---:|:---:|:---:|
 | index (Home) | ✓ | ✓ | — | — | ✓ |
-| about | ✓ | ✓ | ✓ | — | — |
+| about | ✓ | ✓ | ✓ | ✓ | — |
 | portfolio | ✓ | ✓ | ✓ | ✓ | — |
 | contact | ✓ | ✓ | ✓ | — | — |
+
+**bg-fx** = one background from `js/bg-effects/` (currently `binary.js`).
 
 ## Effects & the gating rule
 
 - **CRT turn-on intro:** Home only; JS-gated via `crt-arm`/`crt-play` classes.
   No-JS → plain white page.
-- **Home nav links:** hover glitch scramble + `sounds/old-tv-sound.mp3` on click.
-- **Name decode-in + hover scramble:** all pages (`glitch.js`).
-- **Dot-grid background:** internal pages (`bg.js`). **Project reveal:** portfolio.
+- **Home nav links:** hover glitch scramble (the last 90s glitch) +
+  `sounds/old-tv-sound.mp3` on click.
+- **Name typewriter:** all pages (`type.js`) — types in, cursor blinks, re-types on hover.
+- **Cursor background:** internal pages — one swappable effect from
+  `js/bg-effects/` (currently `binary.js`). **Reveal preview:** portfolio
+  screenshots + about `.reveal-link` names (`reveal.js`).
 - **Rule of thumb:** cursor effects must no-op on touch (`pointer: coarse`) —
   there's no cursor to follow. Effects intentionally do **not** gate on
   `prefers-reduced-motion`: Windows over-reports it (desktop animations off →
@@ -114,6 +131,11 @@ On `portfolio.html`, add **one** attribute to an `.entry` or `.project-item`:
 
 - `data-shot="images/portfolio/<name>.jpg"` → screenshot reveal (pixel-dissolve), or
 - `data-nosignal="Tech · Stack · Here"` → animated "NO SIGNAL" static screen.
+
+The same reveal powers `about.html` too: any `[data-shot]` element (there, the
+orange `.reveal-link` family names) pops its photo, and the screen auto-sizes to
+the image's aspect ratio so portrait photos aren't squashed. The effect lives
+only in `js/reveal.js` — change it there and both pages follow.
 
 Currently 4 entries have screenshots (GPS Trackit Cloud, Platform Manager,
 Transportes Ejecutivos, D Side); the rest use `data-nosignal`. To promote a
@@ -129,6 +151,8 @@ the repo).
   `images/logo-white.svg` — white variant for dark backgrounds.
   `images/favicon.svg` — adaptive to OS light/dark via an embedded `@media`.
 - `images/portfolio/*.jpg` — used by the reveal. `*.png` — originals (unused).
+- `images/about/*.jpg` — Tommy, Michi, Chimuela, wife; the `about.html`
+  `.reveal-link` photos. Optimized (~1200px long side, JPEG q82, EXIF/GPS stripped).
 - `sounds/old-tv-sound.mp3` — Home nav click sound (~0.86s).
 
 ## Conventions
@@ -148,8 +172,9 @@ the repo).
   like GitHub Pages); `file://` can't do clean URLs at all.
 - UI copy is in **English**; the owner authors his own bio / portfolio copy.
 - **New page checklist:** copy an internal page's `<head>` (theme anti-FOUC
-  snippet + font `<link>`s + `main.css`); include `theme.js`, `glitch.js`, and
-  `bg.js`; add the `.backlink` and `.theme-toggle` markup near the top of `<body>`.
+  snippet + font `<link>`s + `main.css`); include `theme.js`, `type.js`, and one
+  `js/bg-effects/*.js` (e.g. `binary.js`); add the `.backlink` and `.theme-toggle`
+  markup near the top of `<body>`.
 
 ## Local preview & visual verification
 

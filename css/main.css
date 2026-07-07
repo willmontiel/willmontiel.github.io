@@ -188,7 +188,7 @@ a { color: inherit; text-decoration: none; }
 
 .home__credo {
   font-family: var(--font-retro);
-  font-size: clamp(1.5rem, 5vw, 1.9rem);
+  font-size: clamp(1.15rem, 3.8vw, 1.4rem);
   letter-spacing: .01em;
   color: var(--ink-soft);
 }
@@ -197,17 +197,29 @@ a { color: inherit; text-decoration: none; }
   padding-inline: var(--s-3);
   text-align: center;
   font-family: var(--font-retro);
-  font-size: clamp(.95rem, 3.4vw, 1.05rem);
+  font-size: clamp(.8rem, 2.8vw, .9rem);
   letter-spacing: .08em;
   text-transform: uppercase;
   color: var(--graphite);
 }
 
-/* Name glitch (glitch.js): the scramble is painted in an absolutely-positioned
-   overlay, so it never re-wraps the heading or jumps the layout on small screens. */
+/* Name typewriter (type.js): the name types in behind a block cursor, painted
+   in an absolute overlay so the growing line never re-wraps the heading; when
+   it finishes the real name is restored (wraps normally) with a blinking cursor. */
 .home__name,
 .page__name { position: relative; }
-.glitch-scr { position: absolute; inset: 0; display: none; white-space: nowrap; }
+.type-scr { position: absolute; inset: 0; display: none; white-space: nowrap; }
+.type-cursor {
+  display: inline-block;
+  width: .5em;
+  height: .1em;              /* thin horizontal bar — a terminal underscore */
+  margin-left: .06em;
+  vertical-align: -.02em;    /* sits at the baseline, like "_" */
+  background: var(--accent);
+  animation: type-blink 1.05s steps(1, end) infinite;
+}
+.type-scr .type-cursor { animation: none; opacity: 1; }   /* steady while typing */
+@keyframes type-blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
 
 /* --- CRT turn-on intro (Home only) ------------------------- */
 /* JS-gated (see index.html): the intro is "armed" — a bright center
@@ -326,6 +338,16 @@ body:not(.is-home)::before {
   box-shadow: 0 12px 44px rgba(0, 0, 0, .35);
   will-change: transform, opacity;
 }
+
+/* Reveal links (about): a name you can hover to pop its photo — see reveal.js. */
+.reveal-link {
+  color: var(--accent);
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 1px dotted var(--accent);
+  transition: background-color .15s ease;
+}
+.reveal-link:hover { background: rgba(255, 74, 28, .12); }
 
 .page {
   max-width: var(--measure);

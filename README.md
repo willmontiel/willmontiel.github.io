@@ -26,12 +26,15 @@ build step, nothing to install. It runs exactly as-is on GitHub Pages.
 
 - **Light / dark theme** toggle — defaults to light; the choice is saved in `localStorage`
 - **CRT turn-on intro** on the home page
-- **90s terminal-glitch** text effect on the name and nav links (on hover and on load)
+- **Terminal typewriter** on the name — it types in behind a blinking cursor (on load and on hover)
+- **90s terminal-glitch** text effect on the home nav links (on hover)
 - **Old-TV sound** on the home nav links
-- **Cursor-reactive phosphor dot-grid** background on the internal pages
-- **Project reveal** on the portfolio — screenshots arrive with a pixel-dissolve CRT
-  effect; entries without a screenshot show an animated **"NO SIGNAL"** screen
-- Cursor effects (dot-grid, project reveal) are disabled on touch devices
+- **Cursor-reactive background** on the internal pages — a binary (0/1) field that lights up near the cursor (swappable; see `js/bg-effects/`)
+- **Reveal preview** — hover a portfolio project (screenshots arrive with a
+  pixel-dissolve CRT effect; entries without one show an animated **"NO SIGNAL"**
+  screen) or an *about* family name to pop its photo; the screen auto-sizes to the
+  image's aspect ratio
+- Cursor effects (background, reveal preview) are disabled on touch devices
 
 ## Project structure
 
@@ -40,9 +43,9 @@ build step, nothing to install. It runs exactly as-is on GitHub Pages.
 ├── css/main.css          # single stylesheet — design tokens + all styles
 ├── js/
 │   ├── theme.js          # light/dark toggle + persistence
-│   ├── glitch.js         # name decode-in / hover scramble
-│   ├── bg.js             # phosphor dot-grid cursor background (internal pages)
-│   └── reveal.js         # portfolio project reveal (pixel-dissolve / NO SIGNAL)
+│   ├── type.js           # name typewriter (types in + blinking cursor)
+│   ├── reveal.js         # shared hover preview (portfolio + about)
+│   └── bg-effects/       # swappable cursor backgrounds — binary.js is active
 ├── images/               # logo, adaptive favicon, portfolio screenshots
 ├── sounds/               # old-tv-sound.mp3
 ├── lab-effects.html      # temporary effects sandbox (unlinked, noindex)

@@ -1,7 +1,8 @@
-/* Phosphor dot-grid background (internal pages only).
-   A faint dot grid; dots near the cursor light up and lean toward the orange
-   accent, like phosphors under the beam. Self-injects its canvas. Disabled on
-   touch (no cursor). Adapts to the light/dark theme. */
+/* Phosphor dot-grid — cursor background (internal pages).
+   The original effect: a faint dot grid where dots near the cursor light up and
+   lean toward the orange accent, like phosphors under the beam. Self-injects its
+   .fx-bg canvas (z-index -1). One of the swappable backgrounds in js/bg-effects/
+   — include exactly ONE per page. Disabled on touch. */
 (function () {
 	if (!window.matchMedia) return;
 	if (window.matchMedia('(pointer: coarse)').matches) return;
@@ -50,11 +51,7 @@
 	document.addEventListener('mouseleave', function () { mx = -9999; my = -9999; });
 	window.addEventListener('resize', resize);
 
-	function init() {
-		document.body.appendChild(canvas);
-		resize();
-		requestAnimationFrame(draw);
-	}
+	function init() { document.body.appendChild(canvas); resize(); requestAnimationFrame(draw); }
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
 	else init();
 })();

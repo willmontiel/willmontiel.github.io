@@ -22,22 +22,12 @@
 		/* --- Lab-only styles (temporary page) --- */
 		#bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
 
-		#preview {
-			position: fixed; top: 0; left: 0; z-index: 50;
-			pointer-events: none; opacity: 0;
-			transition: opacity .12s ease;
-			background: #000;
-			border: 1px solid rgba(255, 74, 28, .55);
-			box-shadow: 0 12px 44px rgba(0, 0, 0, .35);
-			will-change: transform, opacity;
-		}
-
-		.lab-note {
+		.lab-desc {
 			font-family: var(--font-mono);
-			font-size: .72rem; letter-spacing: .08em; line-height: 1.7;
-			text-transform: uppercase; color: var(--graphite);
+			font-size: .74rem; letter-spacing: .04em; line-height: 1.7;
+			color: var(--graphite); margin-top: var(--s-3); min-height: 3em;
 		}
-		.project-item { cursor: crosshair; }
+		.lab-desc b { color: var(--accent); font-weight: 700; }
 
 		.lab-switch {
 			position: fixed; left: 50%; bottom: var(--s-4); transform: translateX(-50%);
@@ -61,7 +51,6 @@
 </head>
 <body>
 	<canvas id="bg" aria-hidden="true"></canvas>
-	<canvas id="preview" width="280" height="186" aria-hidden="true"></canvas>
 
 	<a class="backlink" href="/">← Home</a>
 	<button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" title="Toggle theme">
@@ -77,269 +66,258 @@
 	<main class="page">
 		<header class="page__head">
 			<p class="eyebrow">Effects Lab</p>
-			<h1 class="page__name">Sandbox</h1>
-			<p class="page__role">Fondos con cursor · Reveal de proyectos</p>
+			<h1 class="page__name">William Montiel</h1>
+			<p class="page__role">Cursor background · computer / terminal ideas</p>
 		</header>
 
 		<div class="prose">
-			<p class="lab-note">
-				① Mueve el cursor por la página y prueba los 3 fondos con los botones de abajo.<br />
-				② Pasa el cursor sobre cada proyecto para ver el reveal (pixel-dissolve CRT y la pantalla NO SIGNAL).<br />
-				③ Usa el sol/luna arriba a la derecha para ver todo en claro/oscuro.
+			<p>
+				Mueve el cursor por la página y prueba los fondos con los botones de abajo. Cada uno
+				es una idea con enfoque de <b>computadoras / terminal</b> para reemplazar el fondo de
+				puntos fósforo en las páginas internas (about, portfolio, contact). Prueba también en
+				claro/oscuro con el botón de arriba a la derecha.
 			</p>
-
-			<h2>Proyectos (demo)</h2>
-
-			<div class="project-item" data-mock="1" data-title="TRANSPORTES-EJECUTIVOS">
-				<div class="project-item__name">Transportes Ejecutivos</div>
-				<div class="project-item__tag">Ecosystem · con pantallazo</div>
-				<p class="project-item__desc">Pixel-dissolve CRT — arranca pixelado y engancha la señal.</p>
-			</div>
-
-			<div class="project-item" data-mock="2" data-title="D-SIDE">
-				<div class="project-item__name">D Side</div>
-				<div class="project-item__tag">Internal Platform · con pantallazo</div>
-				<p class="project-item__desc">El preview sigue el cursor mientras te mueves sobre la fila.</p>
-			</div>
-
-			<div class="project-item" data-mock="3" data-title="GPS-TRACKIT-CLOUD">
-				<div class="project-item__name">GPS Trackit Cloud</div>
-				<div class="project-item__tag">Fleet Platform · con pantallazo</div>
-				<p class="project-item__desc">Con scanlines y un tirón de señal al aparecer.</p>
-			</div>
-
-			<div class="project-item" data-nosignal="ANDROID · PHP · MYSQL">
-				<div class="project-item__name">Platform Manager</div>
-				<div class="project-item__tag">Sin pantallazo</div>
-				<p class="project-item__desc">Canal muerto → pantalla NO SIGNAL con estática y stack.</p>
-			</div>
-
-			<div class="project-item" data-nosignal="EMBER · C# · MSSQL">
-				<div class="project-item__name">Legacy Suite</div>
-				<div class="project-item__tag">Sin pantallazo</div>
-				<p class="project-item__desc">Otra sin captura, para ver que se ve intencional.</p>
-			</div>
+			<p class="lab-desc" id="desc"></p>
 		</div>
-
-		<footer class="site-foot">Effects Lab · página temporal · no publicar</footer>
 	</main>
 
-	<div class="lab-switch" role="group" aria-label="Fondo interactivo">
+	<div class="lab-switch" role="group" aria-label="Fondo de cursor">
 		<span class="lab-switch__label">Fondo</span>
-		<button type="button" data-bg="dots" class="is-active">Puntos fósforo</button>
-		<button type="button" data-bg="halo">Halo CRT</button>
+		<button type="button" data-bg="grid" class="is-active">Binario</button>
+		<button type="button" data-bg="rain">Lluvia</button>
+		<button type="button" data-bg="flashlight">Linterna</button>
 		<button type="button" data-bg="trail">Estela</button>
+		<button type="button" data-bg="circuit">Circuito</button>
 		<button type="button" data-bg="off">Ninguno</button>
 	</div>
 
 	<script src="js/theme.js" defer></script>
+	<script src="js/type.js" defer></script>
 	<script>
 		/* ============================================================
-		   LAB — background cursor effects + project reveal.
-		   Self-contained; nothing here ships until we pick winners.
-		   ============================================================ */
+		   LAB — candidate cursor backgrounds for the internal pages.
+		   Self-contained; each effect also ships as a drop-in in js/bg-effects/.
+		   All are monochrome (ink on paper) + orange accent near the
+		   cursor, and adapt to the light/dark theme. ============== */
 		(function () {
-			var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-			var coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+			var canvas = document.getElementById('bg');
+			var ctx = canvas.getContext('2d');
+			var dpr = Math.min(window.devicePixelRatio || 1, 2);
+			var W = 0, H = 0, mx = -9999, my = -9999, raf = null, mode = null;
 			var ACCENT = [255, 74, 28];
+
 			function isDark() { return document.documentElement.getAttribute('data-theme') === 'dark'; }
+			function ink() { return isDark() ? [244, 244, 244] : [10, 10, 10]; }
+			function paper() { return isDark() ? [13, 13, 13] : [255, 255, 255]; }
 			function lerp(a, b, t) { return a + (b - a) * t; }
+			function rgba(c, a) { return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a + ')'; }
+			function mix(base, t) { return [Math.round(lerp(base[0], ACCENT[0], t)), Math.round(lerp(base[1], ACCENT[1], t)), Math.round(lerp(base[2], ACCENT[2], t))]; }
+			function pick(s) { return s.charAt((Math.random() * s.length) | 0); }
+			function fillPaper(a) { ctx.fillStyle = rgba(paper(), a === undefined ? 1 : a); ctx.fillRect(0, 0, W, H); }
 
-			/* ---------- Background ---------- */
-			(function () {
-				var canvas = document.getElementById('bg');
-				var ctx = canvas.getContext('2d');
-				var dpr = Math.min(window.devicePixelRatio || 1, 2);
-				var cssW = 0, cssH = 0, dots = [], SP = 30;
-				var mode = 'dots';
-				var mx = -9999, my = -9999, lx = mx, ly = my;
+			function resize() {
+				W = window.innerWidth; H = window.innerHeight;
+				canvas.width = Math.floor(W * dpr); canvas.height = Math.floor(H * dpr);
+				canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+				ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+				if (mode && mode.reset) mode.reset();
+			}
 
-				function resize() {
-					cssW = window.innerWidth; cssH = window.innerHeight;
-					canvas.width = Math.floor(cssW * dpr); canvas.height = Math.floor(cssH * dpr);
-					canvas.style.width = cssW + 'px'; canvas.style.height = cssH + 'px';
-					ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-					dots = [];
-					for (var y = SP / 2; y < cssH; y += SP)
-						for (var x = SP / 2; x < cssW; x += SP) dots.push([x, y]);
+			/* ---------- 1 · Binary grid ---------- */
+			var grid = (function () {
+				var SP = 26, GB = '01', cells = [];
+				function reset() {
+					cells = [];
+					for (var y = SP; y < H; y += SP)
+						for (var x = SP; x < W; x += SP) cells.push({ x: x, y: y, ch: pick(GB) });
 				}
-				function fade(a) {
-					ctx.globalCompositeOperation = 'destination-out';
-					ctx.fillStyle = 'rgba(0,0,0,' + a + ')';
-					ctx.fillRect(0, 0, cssW, cssH);
+				function draw() {
+					fillPaper();
+					ctx.font = '14px "Space Mono", monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+					var ic = ink(), R = 150;
+					for (var i = 0; i < cells.length; i++) {
+						var c = cells[i], dx = c.x - mx, dy = c.y - my, near = 0, d = Math.sqrt(dx * dx + dy * dy);
+						if (d < R) near = 1 - d / R;
+						if (near > 0 && Math.random() < 0.05 * near) c.ch = pick(GB);
+						ctx.fillStyle = near > 0 ? rgba(mix(ic, near), 0.08 + near * 0.9) : rgba(ic, 0.07);
+						ctx.fillText(c.ch, c.x, c.y);
+					}
+				}
+				return { reset: reset, draw: draw };
+			})();
+
+			/* ---------- 2 · Digital rain ---------- */
+			var rain = (function () {
+				var SP = 18, GR = '01ABCDEF<>{}[]/=+*', cols = [];
+				function reset() {
+					cols = [];
+					for (var i = 0; i * SP < W; i++) cols.push({ x: i * SP + SP / 2, y: Math.random() * -H, sp: 2 + Math.random() * 3 });
+				}
+				function draw() {
+					fillPaper(0.16);   /* translucent → trailing tails */
+					ctx.font = '15px "Space Mono", monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+					var ic = ink(), R = 180;
+					for (var i = 0; i < cols.length; i++) {
+						var c = cols[i];
+						c.y += c.sp;
+						if (c.y > H + 20) { c.y = -20 - Math.random() * 300; c.sp = 2 + Math.random() * 3; }
+						var dx = c.x - mx, dy = c.y - my, near = 0, d = Math.sqrt(dx * dx + dy * dy);
+						if (d < R) near = 1 - d / R;
+						ctx.fillStyle = near > 0 ? rgba(mix(ic, near), 0.9) : rgba(ic, 0.72);
+						ctx.fillText(pick(GR), c.x, c.y);
+					}
+				}
+				return { reset: reset, draw: draw };
+			})();
+
+			/* ---------- 3 · Code flashlight ---------- */
+			var flashlight = (function () {
+				var LH = 19, lines = [];
+				var SRC = [
+					'const routes = fleet.filter(function (v) { return v.online })',
+					'function decode(sig) { return sig.lat != null && sig.lng != null }',
+					'while (queue.length) dispatch(queue.shift())',
+					'addEventListener("mousemove", function (e) { track(e) })',
+					'if (!ctx) throw new Error("no canvas context")',
+					'db.query("SELECT * FROM devices WHERE active = 1")',
+					'export default function App() { return render(<Map/>) }',
+					'for (var i = 0; i < dots.length; i++) draw(dots[i])',
+					'const socket = connect(url, { retry: true, backoff: 2 })'
+				];
+				function reset() {
+					lines = [];
+					var n = Math.ceil(H / LH) + 2;
+					for (var i = 0; i < n; i++) lines.push(SRC[i % SRC.length]);
+				}
+				function draw() {
+					ctx.clearRect(0, 0, W, H);
+					ctx.globalCompositeOperation = 'source-over';
+					ctx.font = '13px "Space Mono", monospace'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+					ctx.fillStyle = rgba(ink(), 0.9);
+					for (var i = 0; i < lines.length; i++) ctx.fillText(lines[i], 24, (i + 1) * LH);
+					/* soft round "flashlight" mask around the cursor */
+					ctx.globalCompositeOperation = 'destination-in';
+					var g = ctx.createRadialGradient(mx, my, 0, mx, my, 175);
+					g.addColorStop(0, 'rgba(0,0,0,1)'); g.addColorStop(0.62, 'rgba(0,0,0,0.85)'); g.addColorStop(1, 'rgba(0,0,0,0)');
+					ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+					/* paper behind everything */
+					ctx.globalCompositeOperation = 'destination-over';
+					fillPaper();
 					ctx.globalCompositeOperation = 'source-over';
 				}
-				function drawDots() {
-					ctx.clearRect(0, 0, cssW, cssH);
-					var dark = isDark(), base = dark ? '244,244,244' : '10,10,10', R = 150, i, d;
-					ctx.fillStyle = 'rgba(' + base + ',0.07)';
-					for (i = 0; i < dots.length; i++) { d = dots[i]; ctx.fillRect(d[0] - 1, d[1] - 1, 2, 2); }
-					if (mx < -9000) return;
-					var bc = dark ? 244 : 10;
-					for (i = 0; i < dots.length; i++) {
-						d = dots[i]; var dx = d[0] - mx, dy = d[1] - my, dist = Math.sqrt(dx * dx + dy * dy);
-						if (dist > R) continue;
-						var t = 1 - dist / R;
-						var r = Math.round(lerp(bc, ACCENT[0], t)), g = Math.round(lerp(bc, ACCENT[1], t)), b = Math.round(lerp(bc, ACCENT[2], t));
-						ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + (0.12 + t * 0.75) + ')';
-						var s = 2 + t * 2.4;
-						ctx.fillRect(d[0] - s / 2, d[1] - s / 2, s, s);
-					}
-				}
-				function drawHalo() {
-					fade(0.08);
-					if (lx < -9000) return;
-					var R = 210;
-					var grd = ctx.createRadialGradient(lx, ly, 0, lx, ly, R);
-					grd.addColorStop(0, 'rgba(255,74,28,0.10)');
-					grd.addColorStop(1, 'rgba(255,74,28,0)');
-					ctx.fillStyle = grd; ctx.fillRect(lx - R, ly - R, 2 * R, 2 * R);
-					ctx.save();
-					ctx.beginPath(); ctx.arc(lx, ly, R, 0, 7); ctx.clip();
-					ctx.fillStyle = isDark() ? 'rgba(255,74,28,0.06)' : 'rgba(10,10,10,0.05)';
-					for (var yy = Math.floor(ly - R); yy < ly + R; yy += 3) ctx.fillRect(lx - R, yy, 2 * R, 1);
-					ctx.restore();
-				}
-				function drawTrail() {
-					fade(0.10);
-					if (lx < -9000) return;
-					var grd = ctx.createRadialGradient(lx, ly, 0, lx, ly, 26);
-					grd.addColorStop(0, 'rgba(255,74,28,0.55)');
-					grd.addColorStop(1, 'rgba(255,74,28,0)');
-					ctx.fillStyle = grd; ctx.beginPath(); ctx.arc(lx, ly, 26, 0, 7); ctx.fill();
-				}
-				function loop() {
-					lx += (mx - lx) * 0.15; ly += (my - ly) * 0.15;
-					if (mode === 'dots') drawDots();
-					else if (mode === 'halo') drawHalo();
-					else if (mode === 'trail') drawTrail();
-					requestAnimationFrame(loop);
-				}
-
-				window.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; });
-				document.addEventListener('mouseleave', function () { mx = -9999; my = -9999; });
-				window.addEventListener('resize', resize);
-
-				window.__setBg = function (m) {
-					mode = m;
-					ctx.clearRect(0, 0, cssW, cssH);
-				};
-
-				if (reduce || coarse) { canvas.style.display = 'none'; return; }
-				resize(); loop();
+				return { reset: reset, draw: draw };
 			})();
 
-			/* wire the switcher buttons regardless (they just no-op if bg is off) */
-			document.querySelectorAll('.lab-switch button').forEach(function (b) {
-				b.addEventListener('click', function () {
-					document.querySelectorAll('.lab-switch button').forEach(function (x) { x.classList.remove('is-active'); });
-					b.classList.add('is-active');
-					if (window.__setBg) window.__setBg(b.getAttribute('data-bg'));
-				});
-			});
-
-			/* ---------- Project reveal ---------- */
-			(function () {
-				if (reduce || coarse) return;
-				function mock(bg, accent, title) {
-					var s = '<svg xmlns="http://www.w3.org/2000/svg" width="560" height="373" viewBox="0 0 560 373">'
-						+ '<rect width="560" height="373" fill="' + bg + '"/>'
-						+ '<rect width="560" height="46" fill="rgba(255,255,255,0.06)"/>'
-						+ '<circle cx="26" cy="23" r="7" fill="' + accent + '"/>'
-						+ '<text x="46" y="28" font-family="monospace" font-size="13" fill="' + accent + '">' + title + '</text>'
-						+ '<rect x="20" y="70" width="330" height="180" rx="4" fill="rgba(255,255,255,0.05)"/>'
-						+ '<polyline points="30,225 90,180 150,205 210,140 270,168 340,105" fill="none" stroke="' + accent + '" stroke-width="3"/>'
-						+ '<rect x="370" y="70" width="170" height="85" rx="4" fill="rgba(255,255,255,0.05)"/>'
-						+ '<rect x="370" y="165" width="170" height="85" rx="4" fill="rgba(255,255,255,0.05)"/>'
-						+ '<rect x="20" y="272" width="520" height="15" rx="2" fill="rgba(255,255,255,0.08)"/>'
-						+ '<rect x="20" y="300" width="450" height="15" rx="2" fill="rgba(255,255,255,0.08)"/>'
-						+ '<rect x="20" y="328" width="490" height="15" rx="2" fill="rgba(255,255,255,0.08)"/>'
-						+ '</svg>';
-					return 'data:image/svg+xml,' + encodeURIComponent(s);
+			/* ---------- 4 · Type trail ---------- */
+			var trail = (function () {
+				var GT = '01{}[]()<>/;=+*abcdef0123456789', parts = [], lx = -9999, ly = -9999;
+				function reset() { parts = []; }
+				function spawn(x, y) { parts.push({ x: x, y: y, ch: pick(GT), life: 1, vy: -(0.3 + Math.random() * 0.6) }); }
+				function draw() {
+					fillPaper();
+					ctx.font = '16px "Space Mono", monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+					var ic = ink();
+					for (var i = parts.length - 1; i >= 0; i--) {
+						var p = parts[i];
+						p.life -= 0.02; p.y += p.vy;
+						if (p.life <= 0) { parts.splice(i, 1); continue; }
+						ctx.fillStyle = rgba(mix(ic, p.life), 0.15 + p.life * 0.8);
+						ctx.fillText(p.ch, p.x, p.y);
+					}
 				}
-				var MOCKS = {
-					'1': mock('#0e1116', '#FF4A1C', 'TRANSPORTES-EJECUTIVOS'),
-					'2': mock('#101418', '#39d98a', 'D-SIDE'),
-					'3': mock('#0b0f1a', '#4aa3ff', 'GPS-TRACKIT-CLOUD')
-				};
-
-				var cv = document.getElementById('preview');
-				var ctx = cv.getContext('2d');
-				var dpr = Math.min(window.devicePixelRatio || 1, 2);
-				var CW = 280, CH = 186;
-				cv.width = CW * dpr; cv.height = CH * dpr;
-				cv.style.width = CW + 'px'; cv.style.height = CH + 'px';
-				ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-				var off = document.createElement('canvas'), octx = off.getContext('2d');
-
-				var active = null, img = null, imgReady = false, mode = 'pic', start = 0, raf = null, stack = '';
-				function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
-				function scan() { ctx.fillStyle = 'rgba(0,0,0,0.18)'; for (var y = 0; y < CH; y += 3) ctx.fillRect(0, y, CW, 1); }
-
-				function position(x, y) {
-					var ox = 20, px = x + ox, py = y - CH / 2;
-					if (px + CW > window.innerWidth - 8) px = x - CW - ox;
-					py = Math.min(Math.max(py, 8), window.innerHeight - CH - 8);
-					cv.style.transform = 'translate(' + px + 'px,' + py + 'px)';
+				function move(x, y) {
+					var dx = x - lx, dy = y - ly;
+					if (dx * dx + dy * dy > 120) { lx = x; ly = y; spawn(x, y); }
 				}
-				function frame() {
-					var t = Math.min(1, (performance.now() - start) / 430), e = easeOut(t);
-					ctx.clearRect(0, 0, CW, CH);
-					if (mode === 'pic') {
-						if (!imgReady) { raf = requestAnimationFrame(frame); return; }
-						var block = Math.max(1, Math.round(18 * (1 - e)));
-						var sw = Math.max(1, Math.ceil(CW / block)), sh = Math.max(1, Math.ceil(CH / block));
-						off.width = sw; off.height = sh;
-						octx.imageSmoothingEnabled = true; octx.clearRect(0, 0, sw, sh);
-						octx.drawImage(img, 0, 0, sw, sh);
-						ctx.imageSmoothingEnabled = false;
-						if (t < 0.5) {
-							var n = 6;
-							for (var s = 0; s < n; s++) {
-								var j = (Math.random() - 0.5) * (1 - t) * 44;
-								ctx.drawImage(off, 0, Math.floor(sh * s / n), sw, Math.ceil(sh / n), j, CH * s / n, CW, CH / n);
-							}
-						} else {
-							ctx.drawImage(off, 0, 0, sw, sh, 0, 0, CW, CH);
+				return { reset: reset, draw: draw, move: move };
+			})();
+
+			/* ---------- 5 · Circuit / PCB ---------- */
+			var circuit = (function () {
+				var SP = 46, nodes = [], pulses = [];
+				function newPulse() {
+					var h = Math.random() < 0.5;
+					var span = h ? H : W;
+					var line = SP + SP * ((Math.random() * Math.floor(span / SP)) | 0);
+					return { h: h, line: line, pos: -30, sp: 1.6 + Math.random() * 2.6 };
+				}
+				function reset() {
+					nodes = [];
+					for (var y = SP; y < H; y += SP)
+						for (var x = SP; x < W; x += SP) nodes.push({ x: x, y: y });
+					pulses = [];
+					for (var k = 0; k < 7; k++) { var p = newPulse(); p.pos = Math.random() * (p.h ? W : H); pulses.push(p); }
+				}
+				function draw() {
+					fillPaper();
+					var ic = ink(), R = 165, i;
+					/* faint PCB grid */
+					ctx.strokeStyle = rgba(ic, 0.05); ctx.lineWidth = 1; ctx.beginPath();
+					for (var x = SP; x < W; x += SP) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+					for (var y = SP; y < H; y += SP) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+					ctx.stroke();
+					/* pads — glow toward the cursor */
+					for (i = 0; i < nodes.length; i++) {
+						var n = nodes[i], dx = n.x - mx, dy = n.y - my, near = 0, d = Math.sqrt(dx * dx + dy * dy);
+						if (d < R) near = 1 - d / R;
+						var s = 2 + near * 3.5;
+						ctx.fillStyle = near > 0 ? rgba(mix(ic, near), 0.12 + near * 0.85) : rgba(ic, 0.09);
+						ctx.fillRect(n.x - s / 2, n.y - s / 2, s, s);
+					}
+					/* pulses travelling the traces */
+					for (i = 0; i < pulses.length; i++) {
+						var p = pulses[i]; p.pos += p.sp;
+						var span = p.h ? W : H;
+						if (p.pos > span + 30) { pulses[i] = newPulse(); continue; }
+						for (var j = 6; j >= 0; j--) {
+							var q = p.pos - j * 5;
+							var px = p.h ? q : p.line, py = p.h ? p.line : q;
+							ctx.fillStyle = rgba(ACCENT, (1 - j / 7) * 0.9);
+							ctx.fillRect(px - 1.5, py - 1.5, 3, 3);
 						}
-						scan();
-						if (t < 0.16) { ctx.fillStyle = 'rgba(255,255,255,' + (0.5 * (1 - t / 0.16)) + ')'; ctx.fillRect(0, 0, CW, CH); }
-						if (t < 1) raf = requestAnimationFrame(frame);
-						else { ctx.clearRect(0, 0, CW, CH); ctx.imageSmoothingEnabled = true; ctx.drawImage(img, 0, 0, CW, CH); scan(); raf = null; }
-					} else {
-						var nb = 3, nsw = Math.ceil(CW / nb), nsh = Math.ceil(CH / nb);
-						off.width = nsw; off.height = nsh;
-						var id = octx.createImageData(nsw, nsh);
-						for (var i = 0; i < id.data.length; i += 4) { var v = Math.random() * 255 | 0; id.data[i] = id.data[i + 1] = id.data[i + 2] = v; id.data[i + 3] = 255; }
-						octx.putImageData(id, 0, 0);
-						ctx.imageSmoothingEnabled = false;
-						ctx.globalAlpha = 0.5; ctx.drawImage(off, 0, 0, nsw, nsh, 0, 0, CW, CH); ctx.globalAlpha = 1;
-						ctx.fillStyle = 'rgba(6,6,6,0.4)'; ctx.fillRect(0, 0, CW, CH);
-						scan();
-						ctx.textAlign = 'center';
-						ctx.fillStyle = '#FF4A1C'; ctx.font = '700 16px "Space Mono", monospace';
-						ctx.fillText('NO SIGNAL', CW / 2, CH / 2 - 4);
-						ctx.fillStyle = 'rgba(235,235,235,0.85)'; ctx.font = '11px "Space Mono", monospace';
-						ctx.fillText(stack, CW / 2, CH / 2 + 18);
-						raf = requestAnimationFrame(frame);
 					}
 				}
-				function enter(row) {
-					active = row; start = performance.now();
-					var m = row.getAttribute('data-mock');
-					if (m) { mode = 'pic'; imgReady = false; img = new Image(); img.onload = function () { imgReady = true; }; img.src = MOCKS[m]; }
-					else { mode = 'nosignal'; stack = row.getAttribute('data-nosignal') || ''; }
-					cv.style.opacity = '1';
-					if (!raf) raf = requestAnimationFrame(frame);
-				}
-				function leave() { cv.style.opacity = '0'; active = null; if (raf) { cancelAnimationFrame(raf); raf = null; } }
-
-				document.querySelectorAll('[data-mock],[data-nosignal]').forEach(function (row) {
-					row.addEventListener('mouseenter', function () { enter(row); });
-					row.addEventListener('mousemove', function (e) { position(e.clientX, e.clientY); });
-					row.addEventListener('mouseleave', leave);
-				});
+				return { reset: reset, draw: draw };
 			})();
+
+			var MODES = {
+				grid: grid, rain: rain, flashlight: flashlight, trail: trail, circuit: circuit,
+				off: { reset: function () { }, draw: function () { fillPaper(); } }
+			};
+			var DESC = {
+				grid: 'Binario — una rejilla de <b>0</b> y <b>1</b>; los que están cerca del cursor se encienden en naranja y cambian de valor. Evolución directa del dot-grid actual.',
+				rain: 'Lluvia digital — columnas de código cayendo estilo Matrix; se tiñen de naranja al pasar el cursor.',
+				flashlight: 'Linterna de código — el fondo es código fuente que solo se revela en un halo alrededor del cursor, como leer con una linterna.',
+				trail: 'Estela de tipeo — el cursor va dejando caracteres que nacen naranjas y se desvanecen. Va con el nuevo efecto de máquina de escribir.',
+				circuit: 'Circuito — trazas tipo placa (PCB) con pulsos naranjas que la recorren; los nodos se iluminan cerca del cursor.',
+				off: 'Sin fondo — página limpia, para comparar.'
+			};
+
+			function loop() { if (mode && mode.draw) mode.draw(); raf = requestAnimationFrame(loop); }
+
+			var desc = document.getElementById('desc');
+			var buttons = document.querySelectorAll('.lab-switch button');
+			function setMode(name) {
+				mode = MODES[name];
+				ctx.clearRect(0, 0, W, H);
+				if (mode && mode.reset) mode.reset();
+				desc.innerHTML = DESC[name] || '';
+				for (var i = 0; i < buttons.length; i++) buttons[i].classList.toggle('is-active', buttons[i].getAttribute('data-bg') === name);
+			}
+			for (var b = 0; b < buttons.length; b++) {
+				buttons[b].addEventListener('click', function () { setMode(this.getAttribute('data-bg')); });
+			}
+
+			window.addEventListener('mousemove', function (e) {
+				mx = e.clientX; my = e.clientY;
+				if (mode === trail) trail.move(mx, my);
+			});
+			document.addEventListener('mouseleave', function () { mx = -9999; my = -9999; });
+			window.addEventListener('resize', resize);
+
+			resize();
+			setMode('grid');
+			raf = requestAnimationFrame(loop);
 		})();
 	</script>
 </body>

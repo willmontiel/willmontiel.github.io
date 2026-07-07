@@ -1,22 +1,34 @@
-/* Project reveal (Portfolio). Hovering an element with [data-shot] pops a small
-   CRT screen that follows the cursor: the screenshot arrives pixelated with a
-   signal tear + scanlines, then locks into focus. Elements with [data-nosignal]
-   show an animated "NO SIGNAL" static screen with the tech stack instead.
-   Self-injects its canvas. Disabled on touch. */
+/* Reveal — shared hover preview (portfolio + about). This is the single place
+   the effect lives: include js/reveal.js on a page and mark elements with
+   data-shot / data-nosignal. Change the effect here and every page follows.
+
+   Hovering an element with [data-shot="path"] pops a small CRT screen that
+   follows the cursor: the image arrives pixelated with a signal tear +
+   scanlines, then locks into focus. The screen auto-sizes to the image's
+   aspect ratio (landscape screenshots, portrait photos) within a max box.
+   Elements with [data-nosignal="Tech · Stack"] show an animated "NO SIGNAL"
+   static screen instead. Self-injects its canvas. Disabled on touch. */
 (function () {
 	if (!window.matchMedia) return;
 	if (window.matchMedia('(pointer: coarse)').matches) return;
 
-	var CW = 300, CH = 169;
+	var BOX = 300;                 /* longest side of the preview screen (px) */
+	var CW = BOX, CH = 169;        /* current screen size — updated per reveal */
 	var canvas = document.createElement('canvas');
 	canvas.className = 'fx-preview';
 	canvas.setAttribute('aria-hidden', 'true');
 	var ctx = canvas.getContext('2d');
 	var dpr = Math.min(window.devicePixelRatio || 1, 2);
-	canvas.width = CW * dpr; canvas.height = CH * dpr;
-	canvas.style.width = CW + 'px'; canvas.style.height = CH + 'px';
-	ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 	var off = document.createElement('canvas'), octx = off.getContext('2d');
+
+	/* Size the screen to a CSS box (backing store stays at dpr). */
+	function setSize(cw, ch) {
+		CW = Math.round(cw); CH = Math.round(ch);
+		canvas.width = CW * dpr; canvas.height = CH * dpr;
+		canvas.style.width = CW + 'px'; canvas.style.height = CH + 'px';
+		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+	}
+	setSize(BOX, 169);
 
 	var img = null, imgReady = false, mode = 'pic', start = 0, raf = null, stack = '';
 	function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
@@ -74,10 +86,23 @@
 	}
 
 	function enter(row) {
-		start = Date.now();
 		var src = row.getAttribute('data-shot');
-		if (src) { mode = 'pic'; imgReady = false; img = new Image(); img.onload = function () { imgReady = true; }; img.src = src; }
-		else { mode = 'nosignal'; stack = row.getAttribute('data-nosignal') || ''; }
+		if (src) {
+			mode = 'pic'; imgReady = false;
+			img = new Image();
+			img.onload = function () {
+				var w = img.naturalWidth || BOX, h = img.naturalHeight || BOX;
+				var s = BOX / Math.max(w, h);
+				setSize(w * s, h * s);
+				imgReady = true; start = Date.now();   /* play the dissolve once pixels are ready */
+			};
+			img.src = src;
+			start = Date.now();
+		} else {
+			mode = 'nosignal'; stack = row.getAttribute('data-nosignal') || '';
+			setSize(BOX, 169);
+			start = Date.now();
+		}
 		canvas.style.opacity = '1';
 		if (!raf) raf = requestAnimationFrame(frame);
 	}
