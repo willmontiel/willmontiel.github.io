@@ -7,12 +7,16 @@
    scanlines, then locks into focus. The screen auto-sizes to the image's
    aspect ratio (landscape screenshots, portrait photos) within a max box.
    Elements with [data-nosignal="Tech · Stack"] show an animated "NO SIGNAL"
-   static screen instead. Self-injects its canvas. Disabled on touch. */
+   static screen instead. Self-injects its canvas. On touch (no cursor to
+   follow) a tap on a target pops the screen centred in the viewport; tapping
+   it, another target, or anywhere else dismisses it. */
 (function () {
 	if (!window.matchMedia) return;
-	if (window.matchMedia('(pointer: coarse)').matches) return;
+	var touch = window.matchMedia('(pointer: coarse)').matches;
 
-	var BOX = 300;                 /* longest side of the preview screen (px) */
+	/* Longest side of the preview screen. On touch the screen is shown centred,
+	   so size it to the phone; on hover it follows the cursor at a fixed 300. */
+	var BOX = touch ? Math.min(360, Math.round(window.innerWidth * 0.84)) : 300;
 	var CW = BOX, CH = 169;        /* current screen size — updated per reveal */
 	var canvas = document.createElement('canvas');
 	canvas.className = 'fx-preview';
@@ -21,12 +25,20 @@
 	var dpr = Math.min(window.devicePixelRatio || 1, 2);
 	var off = document.createElement('canvas'), octx = off.getContext('2d');
 
+	/* Touch shows the screen centred in the viewport (a finger can't hover). */
+	function placeCenter() {
+		var px = Math.round((window.innerWidth - CW) / 2);
+		var py = Math.round((window.innerHeight - CH) / 2);
+		canvas.style.transform = 'translate(' + px + 'px,' + py + 'px)';
+	}
+
 	/* Size the screen to a CSS box (backing store stays at dpr). */
 	function setSize(cw, ch) {
 		CW = Math.round(cw); CH = Math.round(ch);
 		canvas.width = CW * dpr; canvas.height = CH * dpr;
 		canvas.style.width = CW + 'px'; canvas.style.height = CH + 'px';
 		ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+		if (touch) placeCenter();   /* re-centre after the image sets its aspect */
 	}
 	setSize(BOX, 169);
 
@@ -110,11 +122,33 @@
 
 	function init() {
 		document.body.appendChild(canvas);
-		document.querySelectorAll('[data-shot],[data-nosignal]').forEach(function (row) {
-			row.addEventListener('mouseenter', function () { enter(row); });
-			row.addEventListener('mousemove', function (e) { position(e.clientX, e.clientY); });
-			row.addEventListener('mouseleave', leave);
-		});
+		var rows = document.querySelectorAll('[data-shot],[data-nosignal]');
+		if (touch) {
+			/* Tap a target → reveal it centred; tap the screen, another target,
+			   or anywhere else → dismiss. The canvas only captures taps while
+			   open (pointer-events toggled), so it never blocks the page. */
+			var openRow = null;
+			function close() { leave(); canvas.style.pointerEvents = 'none'; openRow = null; }
+			rows.forEach(function (row) {
+				row.addEventListener('click', function (e) {
+					e.stopPropagation();
+					if (openRow === row) { close(); return; }
+					openRow = row;
+					enter(row);
+					placeCenter();
+					canvas.style.pointerEvents = 'auto';
+				});
+			});
+			canvas.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+			document.addEventListener('click', function () { if (openRow) close(); });
+			window.addEventListener('resize', function () { if (openRow) placeCenter(); });
+		} else {
+			rows.forEach(function (row) {
+				row.addEventListener('mouseenter', function () { enter(row); });
+				row.addEventListener('mousemove', function (e) { position(e.clientX, e.clientY); });
+				row.addEventListener('mouseleave', leave);
+			});
+		}
 	}
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
 	else init();

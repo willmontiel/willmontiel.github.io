@@ -88,12 +88,15 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
   `binary.js` (0/1 grid), `matrix-rain.js`, `type-trail.js`, `circuit.js`, and
   `dot-grid.js` (the retired phosphor original). Prototype/compare them in
   `lab-effects.html`.
-- `reveal.js` — **shared hover preview** (the single place this effect lives).
+- `reveal.js` — **shared reveal preview** (the single place this effect lives).
   Self-injects a `.fx-preview` canvas that follows the cursor and pops a CRT
   screen for any `[data-shot]` / `[data-nosignal]` element; the screen
   **auto-sizes to the image's aspect** (landscape screenshots, portrait photos).
-  Disabled on touch. Included on **`portfolio.html`** (project screenshots) and
-  **`about.html`** (the `.reveal-link` names). See below for the markup contract.
+  **On touch** (no cursor to follow) it switches to **tap-to-reveal**: a tap on a
+  target pops the screen **centred** in the viewport (sized to the phone); tapping
+  the screen, another target, or anywhere else dismisses it (the canvas only
+  captures taps while open). Included on **`portfolio.html`** (project screenshots)
+  and **`about.html`** (the `.reveal-link` names). See below for the markup contract.
 - **Inline scripts:** CRT gating (in `index.html` `<head>` — arms
   `crt-arm`/`crt-play` on `<html>` before first paint, plays on `fonts.ready`
   with a 2s safety cap, cleans up on `animationend`); Home nav **glitch** scramble
@@ -123,7 +126,10 @@ properties in `:root`, so the whole site is themeable by flipping tokens.
   `js/bg-effects/` (currently `code-flashlight.js`). **Reveal preview:** portfolio
   screenshots + about `.reveal-link` names (`reveal.js`).
 - **Rule of thumb:** cursor effects must no-op on touch (`pointer: coarse`) —
-  there's no cursor to follow. Effects intentionally do **not** gate on
+  there's no cursor to follow — **unless** they offer a real touch alternative
+  (the Home floppy auto-plays then taps to toggle; `reveal.js` switches to
+  tap-to-reveal). A half-broken hover left on touch is the thing to avoid, not
+  interactivity itself. Effects intentionally do **not** gate on
   `prefers-reduced-motion`: Windows over-reports it (desktop animations off →
   `reduce`), which made the whole site look dead there. Follow this for new work.
 
